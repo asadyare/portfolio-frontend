@@ -1,5 +1,6 @@
 node_modules
 terraform/terraform.tfvars
+terraform.tfvars
 .terraform/
 terraform/.terraform/
 terraform/.terraform.lock.hcl
@@ -7,3 +8,4 @@ terraform.tfstate
 terraform.tfstate.backup
 *.
 terraform/providers.tf
+providers.tf
