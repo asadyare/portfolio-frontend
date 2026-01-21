@@ -1,0 +1,20 @@
+metadata:
+  id: CF_CUSTOM_001
+  name: Cloudflare HTTPS only enforced
+  category: NETWORKING
+  severity: HIGH
+
+definition:
+  and:
+  - cond_type: attribute
+    resource_types:
+    - cloudflare_zone_settings_override
+    attribute: settings.ssl
+    operator: equals
+    value: full
+  - cond_type: attribute
+    resource_types:
+    - cloudflare_zone_settings_override
+    attribute: settings.always_use_https
+    operator: equals
+    value: "on"
