@@ -17,6 +17,9 @@ permissions:
   pull-requests: write
 
 jobs:
+  # -----------------------------
+  # Security & Build Checks
+  # -----------------------------
   build-and-secure:
     runs-on: ubuntu-latest
 
@@ -57,6 +60,9 @@ jobs:
           ignore-unfixed: true
           severity: HIGH,CRITICAL
 
+  # -----------------------------
+  # Terraform Infra
+  # -----------------------------
   terraform-security:
     needs: build-and-secure
     runs-on: ubuntu-latest
@@ -92,11 +98,8 @@ jobs:
     needs: terraform-security
     runs-on: ubuntu-latest
     timeout-minutes: 30
-
     env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
+      TF_VAR_cf_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -112,16 +115,14 @@ jobs:
         run: terraform apply -auto-approve
         working-directory: terraform
 
+  # -----------------------------
+  # Preview deploy for PRs
+  # -----------------------------
   pages-preview:
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     needs: terraform-apply
     runs-on: ubuntu-latest
     timeout-minutes: 15
-
-    env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
     outputs:
       url: ${{ steps.pages.outputs.url }}
 
@@ -147,14 +148,14 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: portfolio-site
+          projectName: cloudflare-static-site
+          branch: ${{ github.head_ref }}
           directory: dist
 
   pages-preview-comment:
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     needs: pages-preview
     runs-on: ubuntu-latest
-
     steps:
       - name: Comment preview URL on PR
         uses: actions/github-script@v7
@@ -163,36 +164,34 @@ jobs:
         with:
           script: |
             github.rest.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: `Preview deployment is ready:\n${process.env.PAGES_URL}`
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Preview deployment is ready:\n${process.env.PAGES_URL}`
             })
 
   pages-preview-cleanup:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
-
-    env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
     steps:
       - name: Cleanup preview deployment
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: portfolio-site
+          projectName: cloudflare-static-site
           branch: ${{ github.head_ref }}
           directory: dist
 
+  # -----------------------------
+  # Production deploy for main
+  # -----------------------------
   pages-deploy:
     if: github.event_name == 'push'
     needs: terraform-apply
     runs-on: ubuntu-latest
-
-    # environment block removed or replace 'production' with a valid environment name if defined in your repository
+    environment:
+      name: production
 
     steps:
       - name: Checkout code
@@ -215,5 +214,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: portfolio-site
+          projectName: cloudflare-static-site
           directory: dist
