@@ -1,14 +1,13 @@
 module "site_deploy" {
-  source                = "./modules/site-deploy"
-  CLOUDFLARE_ACCOUNT_ID = var.CLOUDFLARE_ACCOUNT_ID
-  project_name          = var.project_name
-
+  source         = "./modules/site-deploy"
+  cf_account_id = var.cf_account_id
+  project_name  = var.project_name
 }
 
 resource "cloudflare_zone" "dns" {
   name = var.domain_name
   account = {
-    id = var.CLOUDFLARE_ACCOUNT_ID
+    id = var.cf_account_id
   }
 }
 
@@ -24,8 +23,6 @@ resource "cloudflare_dns_record" "pages" {
   ttl     = 1
   proxied = true
 }
-
-
 
 resource "cloudflare_zone_dnssec" "dnssec" {
   zone_id = cloudflare_zone.dns.id
