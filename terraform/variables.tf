@@ -3,16 +3,6 @@ variable "project_name" {
   description = "Name of the site deployment project"
 }
 
-variable "build_command" {
-  type        = string
-  description = "Build command for the site"
-}
-
-variable "build_output_dir" {
-  type        = string
-  description = "Build output directory"
-}
-
 variable "cf_account_id" {
   type        = string
   description = "Cloudflare Account ID"
