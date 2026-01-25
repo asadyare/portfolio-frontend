@@ -1,4 +1,4 @@
-name: main-deploy
+name: cloudflare-pages-deploy
 
 on:
   push:
@@ -10,16 +10,17 @@ on:
       - synchronize
       - reopened
       - closed
+  workflow_dispatch: # manual trigger for Terraform infra
 
 permissions:
   contents: read
   id-token: write
   pull-requests: write
 
+# -----------------------------
+# Security & Build Checks
+# -----------------------------
 jobs:
-  # -----------------------------
-  # Security & Build Checks
-  # -----------------------------
   build-and-secure:
     runs-on: ubuntu-latest
 
@@ -27,11 +28,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -60,13 +71,15 @@ jobs:
           ignore-unfixed: true
           severity: HIGH,CRITICAL
 
-  # -----------------------------
-  # Terraform Infra
-  # -----------------------------
-  terraform-security:
-    needs: build-and-secure
+# -----------------------------
+# Terraform Infra (manual)
+# -----------------------------
+  terraform-apply:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-
+    env:
+      TF_VAR_cf_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      TF_VAR_cf_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -94,35 +107,17 @@ jobs:
           directory: terraform
           external_checks_dirs: .checkov/custom_policies
 
-  terraform-apply:
-    needs: terraform-security
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    env:
-      TF_VAR_cf_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform init
-        run: terraform init
-        working-directory: terraform
-
       - name: Terraform apply
         run: terraform apply -auto-approve
         working-directory: terraform
 
-  # -----------------------------
-  # Preview deploy for PRs
-  # -----------------------------
+# -----------------------------
+# Preview deploy for PRs
+# -----------------------------
   pages-preview:
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
-    needs: terraform-apply
+    needs: build-and-secure
     runs-on: ubuntu-latest
-    timeout-minutes: 15
     outputs:
       url: ${{ steps.pages.outputs.url }}
 
@@ -130,14 +125,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Cache build output
+        uses: actions/cache@v3
+        with:
+          path: dist
+          key: ${{ runner.os }}-dist-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-dist-
 
       - name: Build site
         run: npm run build
@@ -152,12 +164,13 @@ jobs:
           branch: ${{ github.head_ref }}
           directory: dist
 
+# Comment preview URL on PR
   pages-preview-comment:
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     needs: pages-preview
     runs-on: ubuntu-latest
     steps:
-      - name: Comment preview URL on PR
+      - name: Comment preview URL
         uses: actions/github-script@v7
         env:
           PAGES_URL: ${{ needs.pages-preview.outputs.url }}
@@ -170,6 +183,7 @@ jobs:
               body: `Preview deployment is ready:\n${process.env.PAGES_URL}`
             })
 
+# Cleanup previews when PR closes
   pages-preview-cleanup:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
@@ -183,12 +197,12 @@ jobs:
           branch: ${{ github.head_ref }}
           directory: dist
 
-  # -----------------------------
-  # Production deploy for main
-  # -----------------------------
+# -----------------------------
+# Production deploy for main
+# -----------------------------
   pages-deploy:
-    if: github.event_name == 'push'
-    needs: terraform-apply
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build-and-secure
     runs-on: ubuntu-latest
     environment:
       name: production
@@ -197,14 +211,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Cache build output
+        uses: actions/cache@v3
+        with:
+          path: dist
+          key: ${{ runner.os }}-dist-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-dist-
 
       - name: Build site
         run: npm run build
