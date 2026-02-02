@@ -72,7 +72,7 @@ jobs:
         run: docker build -t portfolio-app:${{ github.sha }} .
 
       - name: Trivy image scan
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: portfolio-app:${{ github.sha }}
           exit-code: 1
