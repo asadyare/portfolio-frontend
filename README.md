@@ -26,7 +26,7 @@ All reusable security workflows run from connected repositories and are consumed
 3. [Kubernetes Deployment and security](https://github.com/asadyare/portfolio-k8s-microservices-deployment)
 4. [Daily security automation](https://github.com/asadyare/portfolio-daily-security)
 
-## Central Repo
+### Central Repo
 
 [Central reposittory](https://github.com/asadyare/devsecops-portfolio-asad)
 
@@ -53,26 +53,6 @@ When all checks pass, Cloudflare Pages creates a preview deployment. GitHub post
 On every push to the main branch, the same shared security workflows run again.
 
 When checks pass, the site builds and deploys to Cloudflare Pages production.
-
-### Manual Infrastructure Flow
-
-A manual workflow supports Terraform formatting, validation, and apply. This workflow exists only for controlled infrastructure changes.
-
-## Security Tooling Source
-
-Security tools run from shared workflow repositories:
-
-- Gitleaks  
-- Semgrep  
-- npm audit  
-- Trivy  
-
-This repository does not duplicate security logic.
-
-## Evidence and Status
-
-- Pull request security workflow badge reflects shared security checks  
-- Production deploy badge reflects Cloudflare Pages deployment from the main branch  
 
 ## Contact
 
