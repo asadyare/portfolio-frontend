@@ -11,7 +11,8 @@ This repository hosts the Cloudflare Pages frontend portfolio application. The r
 - Node.js 20 with npm  
 - React with Vite and Tailwind CSS  
 - Cloudflare Pages for hosting and preview deployments  
-- Docker for local builds and security scanning  
+- Docker for local builds and security scanning
+- Kubernetes for Deployment and Security  
 - GitHub Actions for CI and deployment  
 
 ## Repository Scope
@@ -20,10 +21,12 @@ This repository contains only frontend source code and deployment workflows.
 
 All reusable security workflows run from connected repositories and are consumed through workflow calls:
 
-- portfolio-ci-cd-security  
-- portfolio-daily-security  
-- portfolio-threat-model  
-- portfolio-k8s-security  
+1. [CI CD and security pipelines](https://github.com/asadyare/portfolio-ci-cd-security)
+2. [Threat modeling and risk analysis](https://github.com/asadyare/portfolio-threat-model)
+3. [Kubernetes Deployment and security](https://github.com/asadyare/portfolio-k8s-microservices-deployment)
+4. [Daily security automation](https://github.com/asadyare/portfolio-daily-security)
+
+[![Frontend Architecture](diagrams/architecture.png)](diagrams/architecture.png)
 
 ## CI and Deployment Flow
 
@@ -74,12 +77,10 @@ This repository does not duplicate security logic.
 3. Successful runs deploy preview or production builds to Cloudflare Pages  
 4. Cloudflare provides HTTPS, TLS enforcement, and edge delivery  
 
-## Incident Handling
+## Contact
 
-Failed security checks block preview and production deployments. Developers resolve findings before reruns. All evidence stays in GitHub Actions logs.
+You can contact me via [walasaqo@gmail.com](mailto:walasaqo@gmail.com) or connect with me on [LinkedIn](https://www.linkedin.com/in/asad-hassan-20b540313/).
 
-## Residual Risk
+## License
 
-- Zero day vulnerabilities in third party dependencies  
-- Cloudflare service disruption risk  
-- Application logic flaws outside CI scope  
+This portfolio is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
