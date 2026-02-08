@@ -25,13 +25,14 @@ All reusable security workflows run from connected repositories and are consumed
 2. [Threat modeling and risk analysis](https://github.com/asadyare/portfolio-threat-model)
 3. [Kubernetes Deployment and security](https://github.com/asadyare/portfolio-k8s-microservices-deployment)
 4. [Daily security automation](https://github.com/asadyare/portfolio-daily-security)
-[![Frontend Architecture](diagrams/architecture.png)](diagrams/architecture.png)
 
 ## Central Repo
 
 [Central reposittory](https://github.com/asadyare/devsecops-portfolio-asad)
 
-## CI and Deployment Flow
+## Architecture diagram
+
+[![Frontend Architecture](diagrams/architecture.png)](diagrams/architecture.png)  
 
 ### Pull Request Flow
 
@@ -72,13 +73,6 @@ This repository does not duplicate security logic.
 
 - Pull request security workflow badge reflects shared security checks  
 - Production deploy badge reflects Cloudflare Pages deployment from the main branch  
-
-## Architecture Summary
-
-1. Developer pushes code to GitHub  
-2. GitHub Actions triggers shared security workflows  
-3. Successful runs deploy preview or production builds to Cloudflare Pages  
-4. Cloudflare provides HTTPS, TLS enforcement, and edge delivery  
 
 ## Contact
 
