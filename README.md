@@ -2,13 +2,13 @@
 
 Badges
 
-[![CI Security]
-(https://github.com/asadyare/portfolio-ci-cd-security/actions/workflows/ci-security.yml/badge.svg)]
+Badges
 
-[![Daily Security]
-(https://github.com/asadyare/portfolio-daily-security/actions/workflows/security-alerting-and-reporting.yml/badge.svg)]
+[![CI Security](https://github.com/asadyare/portfolio-ci-cd-security/actions/workflows/ci-security.yml/badge.svg)](https://github.com/asadyare/portfolio-ci-cd-security/actions/workflows/ci-security.yml)
 
-Runtime Security Falco enabled
+[![Daily Security](https://github.com/asadyare/portfolio-daily-security/actions/workflows/security-alerting-and-reporting.yml/badge.svg)](https://github.com/asadyare/portfolio-daily-security/actions/workflows/security-alerting-and-reporting.yml)
+
+[![Runtime Security Falco](https://img.shields.io/badge/Runtime%20Security-Falco%20Enabled-brightgreen)](https://falco.org/)
 
 ## Summary
 
