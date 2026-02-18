@@ -1,6 +1,6 @@
 # Frontend Portfolio
 
-Badges
+## Badges
 
 [![CI Security](https://github.com/asadyare/portfolio-ci-cd-security/actions/workflows/ci-security.yml/badge.svg)](https://github.com/asadyare/portfolio-ci-cd-security/actions/workflows/ci-security.yml)
 
