@@ -1,5 +1,15 @@
 # Frontend Portfolio
 
+Badges
+
+[![CI Security
+(https://github.com/asadyare/portfolio-ci-cd-security/actions/workflows/ci-security.yml/badge.svg)]
+
+[![Daily Security
+(https://github.com/asadyare/portfolio-daily-security/actions/workflows/security-alerting-and-reporting.yml/badge.svg)]
+
+Runtime Security Falco enabled
+
 ## Summary
 
 ### Overview
@@ -26,8 +36,9 @@ All reusable security workflows run from connected repositories and are consumed
 3. [Kubernetes Deployment and security](https://github.com/asadyare/portfolio-k8s-microservices-deployment)
 4. [Daily security automation](https://github.com/asadyare/portfolio-daily-security)
 
-### Central Repo
+### Central Portfolio Reference
 
+Primary portfolio index and documentation
 [Central reposittory](https://github.com/asadyare/devsecops-portfolio-asad)
 
 ## Architecture diagram
