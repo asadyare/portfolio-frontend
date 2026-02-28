@@ -2,5 +2,22 @@
 @import '@fontsource/inter/700.css';
 @import 'tailwindcss';
 
-/* Tailwind v4: class-based dark mode (default is prefers-color-scheme) */
+/* Tailwind v4: class-based dark mode */
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* Global polish */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Focus ring for accessibility */
+*:focus-visible {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}

@@ -69,6 +69,32 @@ In the **portfolio-frontend** repo: **Settings** → **Secrets and variables** �
 
 After saving, the next push to `main` (or the next run of the frontend CI workflow) will deploy to Cloudflare Pages.
 
+### Deploy from your machine (without Git push)
+
+1. Build and deploy in one step from the `portfolio-frontend` folder:
+
+   ```bash
+   npm run deploy
+   ```
+
+2. Set your Cloudflare credentials first (required for Wrangler):
+
+   - **PowerShell:**  
+     `$env:CLOUDFLARE_ACCOUNT_ID="your-account-id"`  
+     `$env:CLOUDFLARE_API_TOKEN="your-api-token"`
+   - **Bash:**  
+     `export CLOUDFLARE_ACCOUNT_ID=your-account-id`  
+     `export CLOUDFLARE_API_TOKEN=your-api-token`
+
+   Use the same Account ID and API token as in “Get Cloudflare credentials” above.  
+   If your Pages project name is not `portfolio-frontend`, run:
+
+   ```bash
+   npx wrangler pages deploy dist --project-name=YOUR_PROJECT_NAME
+   ```
+
+   instead of `npm run deploy`.
+
 ## Architecture diagram
 
 [![Frontend Architecture](diagrams/architecture.png)](diagrams/architecture.png)  
