@@ -29,13 +29,13 @@ All reusable security workflows run from connected repositories and are consumed
 
 1. [CI CD and security pipelines](https://github.com/asadyare/portfolio-ci-cd-security)
 2. [Threat modeling and risk analysis](https://github.com/asadyare/portfolio-threat-model)
-3. [Kubernetes Deployment and security](https://github.com/asadyare/portfolio-k8s-microservices-deployment)
+3. [Kubernetes Deployment and security](https://github.com/asadyare/portfolio-k8s-security)
 4. [Daily security automation](https://github.com/asadyare/portfolio-daily-security)
 
 ### Central Portfolio Reference
 
 Primary portfolio index and documentation
-[Central reposittory](https://github.com/asadyare/devsecops-portfolio-asad)
+[Central repository](https://github.com/asadyare/devsecops-portfolio-asad)
 
 ## Architecture diagram
 
