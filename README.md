@@ -37,6 +37,16 @@ All reusable security workflows run from connected repositories and are consumed
 Primary portfolio index and documentation
 [Central repository](https://github.com/asadyare/devsecops-portfolio-asad)
 
+## Cloudflare Pages Setup
+
+Before CI can deploy, create a Cloudflare Pages project:
+
+1. Go to [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
+2. Connect your GitHub repo and create a project named **portfolio-frontend** (or set the `CLOUDFLARE_PAGES_PROJECT_NAME` secret to match your project name)
+3. Add these secrets in GitHub (**Settings** → **Secrets and variables** → **Actions**):
+   - `CLOUDFLARE_API_TOKEN` – create at [Cloudflare API Tokens](https://dash.cloudflare.com/profile/api-tokens) with "Edit Cloudflare Workers" scope
+   - `CLOUDFLARE_ACCOUNT_ID` – from your Cloudflare dashboard URL
+
 ## Architecture diagram
 
 [![Frontend Architecture](diagrams/architecture.png)](diagrams/architecture.png)  

@@ -1,5 +1,10 @@
 name: frontend-ci
 
+# Cloudflare Pages project must exist. Create at https://dash.cloudflare.com/ -> Pages
+# Or set secret CLOUDFLARE_PAGES_PROJECT_NAME if your project has a different name
+env:
+  CLOUDFLARE_PAGES_PROJECT: ${{ secrets.CLOUDFLARE_PAGES_PROJECT_NAME || 'portfolio-frontend' }}
+
 on:
   push:
     branches:
@@ -51,7 +56,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: portfolio-frontend
+          projectName: ${{ env.CLOUDFLARE_PAGES_PROJECT }}
           branch: ${{ github.head_ref }}
           directory: dist
 
@@ -80,7 +85,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: portfolio-frontend
+          projectName: ${{ env.CLOUDFLARE_PAGES_PROJECT }}
           branch: ${{ github.head_ref }}
           directory: dist
 
@@ -106,7 +111,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: portfolio-frontend
+          projectName: ${{ env.CLOUDFLARE_PAGES_PROJECT }}
           directory: dist
 
   terraform-apply:
