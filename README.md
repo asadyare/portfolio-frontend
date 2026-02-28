@@ -39,13 +39,35 @@ Primary portfolio index and documentation
 
 ## Cloudflare Pages Setup
 
-Before CI can deploy, create a Cloudflare Pages project:
+Before CI can deploy to Cloudflare Pages, do the following **once**:
 
-1. Go to [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
-2. Connect your GitHub repo and create a project named **portfolio-frontend** (or set the `CLOUDFLARE_PAGES_PROJECT_NAME` secret to match your project name)
-3. Add these secrets in GitHub (**Settings** → **Secrets and variables** → **Actions**):
-   - `CLOUDFLARE_API_TOKEN` – create at [Cloudflare API Tokens](https://dash.cloudflare.com/profile/api-tokens) with "Edit Cloudflare Workers" scope
-   - `CLOUDFLARE_ACCOUNT_ID` – from your Cloudflare dashboard URL
+### 1. Create a Cloudflare Pages project
+
+1. Open [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create** → **Pages**.
+2. Choose **Connect to Git**.
+3. Connect GitHub and select the **portfolio-frontend** repository.
+4. Create the project with build settings:
+   - **Framework preset:** None (or Vite)
+   - **Build command:** `npm run build`
+   - **Build output directory:** `dist`
+5. Name the project **portfolio-frontend** (or note the name for step 3).
+
+### 2. Get Cloudflare credentials
+
+- **Account ID:** In the dashboard, open any page; the URL is `https://dash.cloudflare.com/<ACCOUNT_ID>/...`. Use that `<ACCOUNT_ID>`.
+- **API token:** Go to [API Tokens](https://dash.cloudflare.com/profile/api-tokens) → **Create Token** → use the “Edit Cloudflare Workers” template (or custom token with **Account** → **Cloudflare Pages** → **Edit**). Copy the token.
+
+### 3. Add GitHub Actions secrets
+
+In the **portfolio-frontend** repo: **Settings** → **Secrets and variables** → **Actions** → **New repository secret**.
+
+| Secret name | Value |
+|-------------|--------|
+| `CLOUDFLARE_ACCOUNT_ID` | Your Cloudflare account ID |
+| `CLOUDFLARE_API_TOKEN` | Your Cloudflare API token |
+| `CLOUDFLARE_PAGES_PROJECT_NAME` | *(optional)* Only if the Pages project name is **not** `portfolio-frontend` |
+
+After saving, the next push to `main` (or the next run of the frontend CI workflow) will deploy to Cloudflare Pages.
 
 ## Architecture diagram
 

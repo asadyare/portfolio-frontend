@@ -22,6 +22,7 @@ permissions:
   id-token: write
   pull-requests: write
   security-events: write
+  packages: write
 
 jobs:
   shared-security:
@@ -113,6 +114,43 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: ${{ env.CLOUDFLARE_PAGES_PROJECT }}
           directory: dist
+
+  push-image:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: shared-security
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/checkout@v4
+        with:
+          repository: asadyare/portfolio-k8s-security
+          path: dockerfile-repo
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        run: |
+          docker build -f dockerfile-repo/docker/Dockerfile -t ghcr.io/asadyare/portfolio-frontend:${{ github.sha }} -t ghcr.io/asadyare/portfolio-frontend:latest .
+          docker push ghcr.io/asadyare/portfolio-frontend:${{ github.sha }}
+          docker push ghcr.io/asadyare/portfolio-frontend:latest
 
   terraform-apply:
     if: github.event_name == 'workflow_dispatch'
