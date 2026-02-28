@@ -32,9 +32,9 @@ const links = [
     external: true,
   },
   {
-    href: 'https://github.com/asadyare/devsecops-portfolio-asad/raw/main/Asad_Hassan_DevSecOps_Portfolio.pdf',
-    label: 'Portfolio PDF',
-    description: 'Download resume / portfolio',
+    href: 'https://github.com/asadyare/devsecops-portfolio-asad/raw/main/diagrams/DevSecOps_Architecture_Pack.pdf',
+    label: 'DevSecOps Architecture Pack',
+    description: 'Download PDF (diagrams)',
     icon: DocumentArrowDownIcon,
     iconSolid: DocumentSolid,
     external: true,
