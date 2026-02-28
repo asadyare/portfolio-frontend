@@ -25,6 +25,8 @@ jobs:
       node-version: 20
       docker-context: .
       image-name: portfolio-frontend
+      dockerfile-repo: asadyare/portfolio-k8s-security
+      dockerfile-path: docker/Dockerfile
 
   pages-preview:
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
