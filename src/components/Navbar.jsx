@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import profilePhoto from '../assets/profile-photo.png'
 
 const navLinks = [
   { href: '#top', id: 'top', label: 'Home' },
@@ -59,21 +60,23 @@ export default function Navbar() {
     <nav
       className={`sticky top-0 z-50 backdrop-blur-xl border-b transition-colors ${
         scrolled
-          ? 'bg-white/85 dark:bg-gray-950/85 border-gray-200/50 dark:border-gray-800/50'
-          : 'bg-white/60 dark:bg-gray-950/60 border-transparent'
+          ? 'bg-background/90 border-border'
+          : 'bg-background/70 border-transparent'
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div className="w-full px-4 py-3 flex items-center justify-between">
         <a href="#top" className="flex items-center space-x-3 group">
-          <div className="relative flex items-center gap-3">
-            <div className="relative w-11 h-11 rounded-xl flex items-center justify-center bg-white dark:bg-gray-900 ring-1 ring-gray-200/80 dark:ring-gray-700/80 group-hover:ring-primary-500/40 transition-all duration-300 overflow-hidden">
-              <span className="relative z-10 text-[15px] font-medium tracking-[0.2em] text-gray-800 dark:text-gray-100 group-hover:text-primary-500 transition-colors">
-                AH
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-primary-600/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-            </div>
+          <div className="relative w-11 h-11 rounded-2xl bg-card ring-1 ring-border overflow-hidden shadow-[var(--shadow-neon)] group-hover:ring-primary/60 transition-all duration-300">
+            <img
+              src={profilePhoto}
+              alt="Asad profile"
+              className="w-full h-full object-cover opacity-95 group-hover:opacity-100 transition-opacity duration-300"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-primary-500/20 mix-blend-soft-light" />
           </div>
-          <span className="font-semibold text-lg tracking-tight">My Portfolio</span>
+          <span className="font-semibold text-lg tracking-tight text-foreground">
+            Asad Ali <span className="text-primary font-medium">| DevSecOps Engineer</span>
+          </span>
         </a>
 
         <div className="hidden md:flex items-center gap-1">
@@ -85,8 +88,8 @@ export default function Navbar() {
                 href={link.href}
                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                   isActive
-                    ? 'text-primary-500 bg-primary-500/10 dark:bg-primary-500/20'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-primary-500 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    ? 'text-primary bg-primary/20'
+                    : 'text-muted-foreground hover:text-primary hover:bg-muted'
                 }`}
               >
                 {link.label}
@@ -95,7 +98,7 @@ export default function Navbar() {
           })}
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="ml-2 p-2.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="ml-2 p-2.5 rounded-lg border border-border hover:bg-muted text-foreground transition-colors"
             aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {darkMode ? <SunIcon className="w-5 h-5" /> : <MoonIcon className="w-5 h-5" />}
@@ -105,14 +108,14 @@ export default function Navbar() {
         <div className="md:hidden flex items-center gap-2">
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="p-2.5 rounded-lg border border-gray-200 dark:border-gray-700"
+            className="p-2.5 rounded-lg border border-border text-foreground"
             aria-label="Toggle theme"
           >
             {darkMode ? <SunIcon className="w-5 h-5" /> : <MoonIcon className="w-5 h-5" />}
           </button>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 rounded-lg border border-gray-200 dark:border-gray-700"
+            className="p-2 rounded-lg border border-border text-foreground"
             aria-label="Menu"
           >
             {menuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
@@ -121,7 +124,7 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden px-4 pb-4 space-y-1 border-t border-gray-200 dark:border-gray-800">
+        <div className="md:hidden px-4 pb-4 space-y-1 border-t border-border">
           {navLinks.map((link) => {
             const isActive = activeId === link.id
             return (
@@ -129,8 +132,8 @@ export default function Navbar() {
                 key={link.id}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className={`block py-3 px-4 rounded-lg font-medium ${
-                  isActive ? 'text-primary-500 bg-primary-500/10' : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+                className={`block py-3 px-4 rounded-lg font-medium text-foreground ${
+                  isActive ? 'text-primary bg-primary/20' : 'hover:bg-muted'
                 }`}
               >
                 {link.label}

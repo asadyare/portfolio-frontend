@@ -1,72 +1,108 @@
 import { motion } from 'framer-motion'
-import { ShieldCheckIcon, ArrowRightIcon, CodeBracketIcon, CubeIcon } from '@heroicons/react/24/outline'
+import { ShieldCheckIcon, CodeBracketIcon, CubeIcon, ArrowDownIcon } from '@heroicons/react/24/outline'
 
 export default function BlueprintHeroSection() {
   return (
-    <section id="top" className="relative overflow-hidden py-16 md:py-24">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-500/10 via-transparent to-transparent dark:from-primary-500/5" />
-        <div className="absolute inset-0 grid-pattern opacity-30" />
+    <section
+      id="top"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background dark:bg-transparent"
+    >
+      {/* Background: hero image + dark gradient + grid, like Portfolio B */}
+      <div className="absolute inset-0 z-[5]">
+        {/* Hero background image (place hero-bg.jpg in /public or adjust path) */}
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-10 dark:opacity-10"
+          style={{
+            backgroundImage: "url('/hero-bg.jpg')",
+            // Reduce neon "shiny" look: less contrast + a bit less saturation.
+            filter: 'saturate(1.0) contrast(0.92)',
+          }}
+        />
+        {/* Vignette (dark edges, clearer center) */}
+        <div
+          className="absolute inset-0 opacity-40 dark:opacity-65"
+          style={{
+            background:
+              'radial-gradient(circle at center,' +
+              ' rgba(0,0,0,0) 0%,' +
+              ' rgba(0,0,0,0.04) 55%,' +
+              ' rgba(0,0,0,0.22) 100%)',
+          }}
+        />
+
+        {/* Grid overlay (very subtle) */}
+        <div className="absolute inset-0 grid-pattern opacity-0 dark:opacity-10" />
       </div>
 
-      <div className="container mx-auto px-6 text-center">
+      <div className="relative z-10 container mx-auto px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto"
         >
-          {/* Terminal badge */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.15 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200/60 dark:border-gray-800/60 bg-white/70 dark:bg-gray-950/40 backdrop-blur-sm mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-glow bg-secondary/50 backdrop-blur-sm mb-8"
           >
-            <ShieldCheckIcon className="w-4 h-4 text-primary-500" />
-            <span className="font-medium text-sm text-gray-900 dark:text-gray-100">
+            <ShieldCheckIcon className="w-4 h-4 text-primary" />
+            <span className="font-display font-medium text-sm text-primary">
               DevSecOps Engineer
             </span>
           </motion.div>
 
-          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-            <span className="text-gray-900 dark:text-gray-100">Securing the </span>
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight font-display mb-6">
+            <span className="text-foreground">Securing the </span>
             <span className="text-gradient-neon">Pipeline</span>
             <br />
-            <span className="text-gray-900 dark:text-gray-100">from Code to </span>
+            <span className="text-foreground">from Code to </span>
             <span className="text-gradient-neon">Cloud</span>
           </h1>
 
-          <p className="mt-6 text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-2xl mx-auto">
-            Building secure, automated delivery with CI security gates, hardened containers, Kubernetes runtime detection, and evidence-ready observability.
+          <p className="text-lg md:text-xl text-muted-foreground font-body max-w-2xl mx-auto mb-10 leading-relaxed">
+            Building production-grade security automation across CI/CD pipelines, Kubernetes clusters, and cloud
+            infrastructure with Terraform, Docker, and observability stacks.
           </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="#projects"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl bg-primary-500 hover:bg-primary-600 text-white font-semibold text-sm shadow-lg shadow-primary-500/20 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-lg bg-primary text-primary-foreground font-display font-semibold text-sm hover:opacity-90 transition-opacity glow-pulse"
             >
-              <ShieldCheckIcon className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              <ShieldCheckIcon className="w-4 h-4" />
               View Projects
-              <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
-            <a
-              href="#pipeline"
-              className="inline-flex items-center justify-center px-8 py-3 rounded-xl border border-gray-200/70 dark:border-gray-700/70 hover:border-primary-500 hover:bg-primary-500/5 text-gray-900 dark:text-gray-100 font-medium text-sm transition-all duration-300"
-            >
-              <CodeBracketIcon className="w-4 h-4 mr-2" />
-              Pipeline Architecture
-            </a>
+            <div className="relative inline-flex items-center justify-center">
+              {/* Arrow ABOVE the Pipeline button */}
+              <motion.div
+                aria-hidden="true"
+                className="absolute -top-5 left-4 z-10"
+                animate={{ y: [0, 6, 0], opacity: [0.85, 1, 0.85] }}
+                transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+              >
+                <ArrowDownIcon className="w-5 h-5 text-muted-foreground" />
+              </motion.div>
+
+              <a
+                href="#pipeline"
+                className="inline-flex items-center gap-2 px-8 py-3 rounded-lg border border-glow text-primary font-display font-semibold text-sm hover:bg-primary/10 transition-colors"
+              >
+                <CodeBracketIcon className="w-4 h-4" />
+                Pipeline Architecture
+              </a>
+            </div>
           </div>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-sm">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 dark:bg-gray-950/30 border border-gray-200/60 dark:border-gray-800/60">
-              <CubeIcon className="w-4 h-4 text-primary-500" />
-              Non-root containers
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/50 border border-border">
+              <CubeIcon className="w-4 h-4 text-primary" />
+              <span className="text-foreground">Non-root containers</span>
             </span>
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 dark:bg-gray-950/30 border border-gray-200/60 dark:border-gray-800/60">
-              <ShieldCheckIcon className="w-4 h-4 text-primary-500" />
-              Runtime detection
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/50 border border-border">
+              <ShieldCheckIcon className="w-4 h-4 text-primary" />
+              <span className="text-foreground">Runtime detection</span>
             </span>
           </div>
         </motion.div>

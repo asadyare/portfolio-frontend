@@ -23,7 +23,7 @@ const skills = [
 
 export default function BlueprintSkillsSection() {
   return (
-    <section id="skills" className="py-24 scroll-mt-24 relative">
+    <section id="skills" className="py-24 scroll-mt-24 relative bg-background">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -32,7 +32,7 @@ export default function BlueprintSkillsSection() {
           className="text-center mb-16"
         >
           <span className="font-semibold text-sm text-primary tracking-widest uppercase">Tech Stack</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3">
+          <h2 className="text-3xl md:text-4xl font-bold mt-3 text-foreground font-display">
             Core <span className="text-gradient-neon">Technologies</span>
           </h2>
         </motion.div>
@@ -47,11 +47,11 @@ export default function BlueprintSkillsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                className="card-gradient rounded-xl border border-gray-200/60 dark:border-gray-800/60 p-6 hover:border-primary-500/40 transition-all duration-300 group"
+                className="card-gradient rounded-xl border border-border p-6 hover:border-glow transition-all duration-300 group"
               >
-                <Icon className="w-8 h-8 text-primary mb-4 group-hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.45)] transition-all" />
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{skill.label}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{skill.desc}</p>
+                <Icon className="w-8 h-8 text-primary mb-4 group-hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.45)] transition-all" />
+                <h3 className="font-semibold text-foreground mb-2">{skill.label}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{skill.desc}</p>
               </motion.div>
             )
           })}

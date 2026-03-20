@@ -63,7 +63,7 @@ const TreeNode = ({ item }) => (
       ) : (
         <DocumentArrowDownIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
       )}
-      <span className={item.items ? 'text-primary font-medium' : 'text-gray-600 dark:text-gray-300 text-sm'}>
+      <span className={item.items ? 'text-primary font-medium' : 'text-muted-foreground text-sm'}>
         {item.name}
       </span>
     </div>
@@ -75,7 +75,7 @@ const TreeNode = ({ item }) => (
 
 export default function BlueprintRepoStructureSection() {
   return (
-    <section id="repo" className="py-24 scroll-mt-24 relative bg-gray-50/30 dark:bg-gray-950/20">
+    <section id="repo" className="py-24 scroll-mt-24 relative bg-secondary/30">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -84,7 +84,7 @@ export default function BlueprintRepoStructureSection() {
           className="text-center mb-16"
         >
           <span className="font-semibold text-sm text-primary tracking-widest uppercase">Structure</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3">
+          <h2 className="text-3xl md:text-4xl font-bold mt-3 text-foreground font-display">
             Repository <span className="text-gradient-neon">Layout</span>
           </h2>
         </motion.div>
@@ -93,13 +93,13 @@ export default function BlueprintRepoStructureSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto card-gradient rounded-xl border border-gray-200/60 dark:border-gray-800/60 p-6"
+          className="max-w-3xl mx-auto card-gradient rounded-xl border border-border p-6"
         >
-          <div className="flex items-center gap-2 pb-4 mb-4 border-b border-gray-200/60 dark:border-gray-800/60">
+          <div className="flex items-center gap-2 pb-4 mb-4 border-b border-border">
             <div className="w-3 h-3 rounded-full bg-red-400/60" />
             <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
-            <div className="w-3 h-3 rounded-full bg-primary-500/60" />
-            <span className="text-xs text-gray-600 dark:text-gray-300 font-medium ml-2">my-portfolio-development/</span>
+            <div className="w-3 h-3 rounded-full bg-primary/60" />
+            <span className="text-xs text-muted-foreground font-medium ml-2">my-portfolio-development/</span>
           </div>
 
           <div className="space-y-0.5">
@@ -108,7 +108,7 @@ export default function BlueprintRepoStructureSection() {
             ))}
           </div>
 
-          <div className="mt-6 text-sm text-gray-600 dark:text-gray-400">
+          <div className="mt-6 text-sm text-muted-foreground">
             This section summarizes the security lifecycle evidence across repositories (CI security workflows, Kubernetes hardening, runtime detection, and threat model docs).
           </div>
         </motion.div>

@@ -7,7 +7,7 @@ import Footer from './components/Footer'
 export default function RoutesApp() {
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 text-gray-800 dark:text-gray-100 font-sans transition-colors duration-300">
+      <div className="min-h-screen bg-background text-foreground font-body antialiased">
         <Navbar />
         <main className="w-full">
           <Routes>

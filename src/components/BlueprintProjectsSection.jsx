@@ -53,7 +53,7 @@ const projects = [
 
 export default function BlueprintProjectsSection() {
   return (
-    <section id="projects" className="py-24 scroll-mt-24 relative">
+    <section id="projects" className="py-24 scroll-mt-24 relative bg-background">
       <div className="absolute inset-0 grid-pattern opacity-20" />
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
@@ -63,10 +63,10 @@ export default function BlueprintProjectsSection() {
           className="text-center mb-16"
         >
           <span className="font-semibold text-sm text-primary tracking-widest uppercase">Portfolio</span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-3">
+          <h2 className="text-3xl md:text-4xl font-bold mt-3 text-foreground font-display">
             Core <span className="text-gradient-neon">Projects</span>
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 mt-4 max-w-xl mx-auto">
+          <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
             Production-grade DevSecOps demonstrations: pipelines, infrastructure, runtime detection, and observability.
           </p>
         </motion.div>
@@ -81,21 +81,21 @@ export default function BlueprintProjectsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06 }}
-                className="card-gradient rounded-xl border border-gray-200/60 dark:border-gray-800/60 p-8 hover:border-primary-500/40 transition-all duration-300 group"
+                className="card-gradient rounded-xl border border-border p-8 hover:border-glow transition-all duration-300 group"
               >
                 <div className="flex items-start justify-between mb-5">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-primary-500/10 text-primary-500 group-hover:bg-primary-500/20 transition-colors">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{project.title}</h3>
+                    <h3 className="text-xl font-semibold text-foreground">{project.title}</h3>
                   </div>
 
                   <a
                     href={project.repoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200/70 dark:border-gray-800/70 hover:border-primary-500/70 hover:bg-primary-500/5 transition-colors text-sm text-gray-800 dark:text-gray-100"
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-border hover:border-glow hover:bg-primary/10 transition-colors text-sm text-foreground"
                     aria-label={`Open ${project.title} repository`}
                   >
                     <ArrowTopRightOnSquareIcon className="w-4 h-4" />
@@ -103,13 +103,13 @@ export default function BlueprintProjectsSection() {
                   </a>
                 </div>
 
-                <p className="text-sm text-gray-600 dark:text-gray-400 font-medium mb-5">{project.goal}</p>
+                <p className="text-sm text-muted-foreground font-medium mb-5">{project.goal}</p>
 
                 <div className="flex flex-wrap gap-2 mb-5">
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="text-xs px-2.5 py-1 rounded-lg bg-gray-100 dark:bg-gray-800/60 text-gray-800 dark:text-gray-200 border border-gray-200/40"
+                      className="text-xs px-2.5 py-1 rounded-lg bg-secondary/60 text-secondary-foreground border border-border"
                     >
                       {t}
                     </span>
@@ -118,8 +118,8 @@ export default function BlueprintProjectsSection() {
 
                 <div className="space-y-2">
                   {project.concepts.map((c) => (
-                    <div key={c} className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary-500" />
+                    <div key={c} className="flex items-center gap-2 text-sm text-foreground">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                       {c}
                     </div>
                   ))}
