@@ -10,7 +10,7 @@ const certifications = [
   { name: 'Certified in Cybersecurity (CC)', issuer: 'ISC2', issued: 'Jun 2024', expires: 'Jun 2027' },
   { name: 'Google Cybersecurity Specialization', issuer: 'Coursera', issued: 'Jun 2024', expires: null },
   { name: 'Mastercard Cybersecurity Job Simulation', issuer: 'Forage', issued: 'Jun 2024', expires: null },
-  { name: 'DevSecOps Certified', issuer: 'Cyber Agoge', issued: 'Dec 2024', expires: null, noExpiration: true },
+  { name: 'DevSecOps Certified', issuer: 'Cyber Agoge', issued: 'Dec 2024', expires: null },
 ]
 
 export default function BlueprintCertificationsSection() {
@@ -56,11 +56,7 @@ export default function BlueprintCertificationsSection() {
               <p className="text-xs text-muted-foreground mt-1">{c.issuer}</p>
               <p className="text-[11px] text-muted-foreground/90 mt-2">
                 Issued {c.issued}
-                {c.noExpiration
-                  ? ' · No expiration date'
-                  : c.expires
-                    ? ` · Expires ${c.expires}`
-                    : ''}
+                {c.expires ? ` · Expires ${c.expires}` : ''}
               </p>
             </motion.div>
           ))}
