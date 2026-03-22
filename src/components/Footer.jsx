@@ -8,7 +8,7 @@ export default function Footer() {
             <span className="font-semibold text-gradient-neon inline-block">
               DevSecOps Portfolio
             </span>{' '}
-            © 2026
+            © 2026 All rights reserved.
           </p>
         </div>
       </div>
