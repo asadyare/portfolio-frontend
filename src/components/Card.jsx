@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
-export default function Card({ title, description, tags, repoUrl, badgeUrl }) {
+export default function Card({ title, description, tags, repoUrl, badgeUrl, caseStudyPath }) {
   return (
     <motion.article
       whileHover={{ y: -6, scale: 1.01 }}
@@ -35,16 +36,23 @@ export default function Card({ title, description, tags, repoUrl, badgeUrl }) {
         ))}
       </div>
 
-      {repoUrl && (
-        <a
-          href={repoUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="mt-4 inline-block text-sm underline"
-        >
-          View repository
-        </a>
-      )}
+      <div className="mt-4 flex flex-wrap gap-4 items-center">
+        {caseStudyPath && (
+          <Link to={caseStudyPath} className="text-sm font-medium text-primary-500 hover:underline">
+            Case study
+          </Link>
+        )}
+        {repoUrl && (
+          <a
+            href={repoUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm underline text-gray-700 dark:text-gray-300"
+          >
+            View repository
+          </a>
+        )}
+      </div>
     </motion.article>
   )
 }

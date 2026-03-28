@@ -20,7 +20,7 @@ export default function ProjectsPreview() {
       </div>
       <div className="mt-6">
         <Link to="/projects" className="text-primary-500 font-medium hover:underline">
-          View all projects →
+          View all case studies →
         </Link>
       </div>
     </section>

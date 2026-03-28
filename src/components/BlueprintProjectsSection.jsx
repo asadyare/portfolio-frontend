@@ -1,67 +1,10 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import {
   ArrowTopRightOnSquareIcon,
-  ShieldCheckIcon,
-  ShieldExclamationIcon,
-  CodeBracketIcon,
-  ServerStackIcon,
-  CalendarDaysIcon,
+  DocumentTextIcon,
 } from '@heroicons/react/24/outline'
-
-const projects = [
-  {
-    id: 'secure-ci-cd',
-    title: 'portfolio-ci-cd-security',
-    goal: 'Reusable workflows: secret scan, SAST, npm audit, Docker build, Trivy image scan',
-    tech: ['GitHub Actions', 'Gitleaks', 'Semgrep', 'npm audit', 'Trivy', 'Docker'],
-    concepts: ['workflow_call to app repos', 'SARIF to Security tab', 'Fail on HIGH/CRITICAL (Trivy)'],
-    icon: ShieldCheckIcon,
-    repoUrl: 'https://github.com/asadyare/portfolio-ci-cd-security',
-    accent: 'primary',
-  },
-  {
-    id: 'terraform-iac',
-    title: 'portfolio-frontend',
-    goal:
-      'React (Vite) portfolio, Cloudflare Pages deploy via Wrangler (bundles static + Pages Functions), Terraform for DNS/zone',
-    tech: ['React', 'Vite', 'Cloudflare Pages', 'Workers/Pages Functions', 'Terraform', 'Cloudflare provider'],
-    concepts: ['PR previews + production deploys', 'GET /metrics at the edge', 'CI consumes shared-security'],
-    icon: CodeBracketIcon,
-    repoUrl: 'https://github.com/asadyare/portfolio-frontend',
-    accent: 'secondary',
-  },
-  {
-    id: 'k8s-security',
-    title: 'portfolio-k8s-security',
-    goal: 'Kubernetes manifests: hardened Deployment, ingress/TLS, NetworkPolicy, Falco, Grafana dashboard ConfigMap',
-    tech: ['Kubernetes', 'Docker', 'Ingress', 'NetworkPolicy', 'Falco', 'Grafana (as code)'],
-    concepts: ['Non-root workloads', 'Runtime detection', 'Observability YAML in repo'],
-    icon: ServerStackIcon,
-    repoUrl: 'https://github.com/asadyare/portfolio-k8s-security',
-    accent: 'primary',
-  },
-  {
-    id: 'daily-security',
-    title: 'portfolio-daily-security',
-    goal: 'Scheduled scans (daily + weekly) for CVEs and drift when no PRs run — SBOM, SARIF, GitHub Issues',
-    tech: ['GitHub Actions (cron)', 'Gitleaks', 'Trivy FS', 'SBOM', 'SARIF upload'],
-    concepts: ['Post-merge assurance', 'Weekly report issue', 'Links to workflow evidence'],
-    icon: CalendarDaysIcon,
-    repoUrl: 'https://github.com/asadyare/portfolio-daily-security',
-    accent: 'secondary',
-  },
-  {
-    id: 'threat-model',
-    title: 'portfolio-threat-model',
-    goal:
-      'Threat modeling and risk analysis for the portfolio: STRIDE, trust boundaries, mitigations mapped to CI and K8s',
-    tech: ['Markdown', 'STRIDE', 'Risk register', 'Diagrams', 'frontend / CI / K8s lanes'],
-    concepts: ['Assets & boundaries', 'Threats with mitigations', 'Aligned with Cloudflare + cluster controls'],
-    icon: ShieldExclamationIcon,
-    repoUrl: 'https://github.com/asadyare/portfolio-threat-model',
-    accent: 'primary',
-  },
-]
+import { caseStudies, projectCasePath } from '../data/caseStudies'
 
 export default function BlueprintProjectsSection() {
   return (
@@ -79,42 +22,61 @@ export default function BlueprintProjectsSection() {
             Core <span className="text-gradient-neon">Projects</span>
           </h2>
           <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
-            Each card links to a public GitHub repo you can clone or review. Together they show how I structure
-            shared security workflows, ship a production site with CI gates, run K8s and runtime detection, automate
-            post-merge assurance, and document threats against the same systems.
+            Each card links to a public GitHub repo and a{' '}
+            <strong className="text-foreground">case study</strong> page with context, pipeline stages, and evidence.
+            Together they show shared security workflows, production hosting, K8s, post-merge assurance, and threat
+            modeling.
+          </p>
+          <p className="mt-6">
+            <Link
+              to="/projects"
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+            >
+              <DocumentTextIcon className="w-5 h-5" />
+              Browse all case studies
+            </Link>
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {projects.map((project, i) => {
+          {caseStudies.map((project, i) => {
             const Icon = project.icon
             return (
               <motion.div
-                key={project.id}
+                key={project.slug}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06 }}
-                className="card-gradient rounded-xl border border-border p-8 hover:border-glow transition-all duration-300 group"
+                className="card-gradient rounded-xl border border-border p-8 hover:border-glow transition-all duration-300 group flex flex-col"
               >
-                <div className="flex items-start justify-between mb-5">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                <div className="flex items-start justify-between mb-5 gap-2">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors shrink-0">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground">{project.title}</h3>
+                    <h3 className="text-xl font-semibold text-foreground leading-tight">{project.shortTitle}</h3>
                   </div>
 
-                  <a
-                    href={project.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-border hover:border-glow hover:bg-primary/10 transition-colors text-sm text-foreground"
-                    aria-label={`Open ${project.title} repository`}
-                  >
-                    <ArrowTopRightOnSquareIcon className="w-4 h-4" />
-                    Repo
-                  </a>
+                  <div className="flex flex-col gap-2 shrink-0">
+                    <a
+                      href={project.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-border hover:border-glow hover:bg-primary/10 transition-colors text-sm text-foreground"
+                      aria-label={`Open ${project.shortTitle} repository`}
+                    >
+                      <ArrowTopRightOnSquareIcon className="w-4 h-4" />
+                      Repo
+                    </a>
+                    <Link
+                      to={projectCasePath(project.category, project.slug)}
+                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-primary/40 bg-primary/10 hover:bg-primary/20 transition-colors text-sm font-medium text-primary"
+                    >
+                      <DocumentTextIcon className="w-4 h-4" />
+                      Case study
+                    </Link>
+                  </div>
                 </div>
 
                 <p className="text-sm text-muted-foreground font-medium mb-5">{project.goal}</p>
@@ -130,10 +92,10 @@ export default function BlueprintProjectsSection() {
                   ))}
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2 flex-1">
                   {project.concepts.map((c) => (
                     <div key={c} className="flex items-center gap-2 text-sm text-foreground">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                       {c}
                     </div>
                   ))}
@@ -146,4 +108,3 @@ export default function BlueprintProjectsSection() {
     </section>
   )
 }
-

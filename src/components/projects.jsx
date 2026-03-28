@@ -15,6 +15,7 @@ export default function Projects() {
             tags={item.tags}
             repoUrl={item.repoUrl}
             badgeUrl={item.badgeUrl}
+            caseStudyPath={item.caseStudyPath}
           />
         ))}
       </div>

@@ -21,6 +21,16 @@ This repository hosts the Cloudflare Pages frontend portfolio application. The r
 - Kubernetes manifests and cluster security  
 - GitHub Actions for CI and deployment  
 
+### Project case studies (by domain)
+
+- **`/projects`** — hub: pick a vertical (portfolio, bank, healthcare, …).
+- **`/projects/portfolio-projects`** — case studies for this portfolio’s repos (CI/CD, frontend, K8s, etc.).
+- **`/projects/bank-app-projects`** / **`/projects/healthcare-app-projects`** — placeholders until you add repos; same pattern.
+- **`/projects/:categoryId/:slug`** — full case study (e.g. `/projects/portfolio-projects/portfolio-ci-cd-security`). Data in **`src/data/caseStudies.js`** (`category` + `slug`); categories in **`projectCategories`**.
+- Old one-segment URLs like **`/projects/portfolio-ci-cd-security`** redirect to the new path.
+
+`public/_redirects` ensures Cloudflare Pages serves `index.html` for client-side routes.
+
 ## Repository Scope
 
 This repository contains only frontend source code and deployment workflows.

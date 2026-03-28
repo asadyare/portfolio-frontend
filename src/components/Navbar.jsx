@@ -7,7 +7,7 @@ const navLinks = [
   { href: '/#top', id: 'top', label: 'Home' },
   { href: '/#skills', id: 'skills', label: 'Skills' },
   { href: '/#credentials', id: 'credentials', label: 'Credentials' },
-  { href: '/#projects', id: 'projects', label: 'Projects' },
+  { to: '/projects', id: 'projects', label: 'Projects' },
   { href: '/#pipeline', id: 'pipeline', label: 'Pipeline' },
   { href: '/#monitoring', id: 'monitoring', label: 'Monitoring' },
   { href: '/#repo', id: 'repo', label: 'Repository' },
@@ -17,6 +17,8 @@ const navLinks = [
 export default function Navbar() {
   const location = useLocation()
   const isDashboard = location.pathname === '/dashboard'
+  const isProjectsSection =
+    location.pathname === '/projects' || location.pathname.startsWith('/projects/')
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [darkMode, setDarkMode] = useState(() => {
@@ -92,8 +94,15 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => {
-            const isActive = !isDashboard && location.pathname === '/' && activeId === link.id
-            return (
+            const isActive =
+              link.to != null
+                ? !isDashboard && isProjectsSection && link.id === 'projects'
+                : !isDashboard && location.pathname === '/' && activeId === link.id
+            return link.to != null ? (
+              <Link key={link.id} to={link.to} className={linkClass(isActive)}>
+                {link.label}
+              </Link>
+            ) : (
               <a key={link.id} href={link.href} className={linkClass(isActive)}>
                 {link.label}
               </a>
@@ -132,8 +141,22 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden px-4 pb-4 space-y-1 border-t border-border">
           {navLinks.map((link) => {
-            const isActive = !isDashboard && location.pathname === '/' && activeId === link.id
-            return (
+            const isActive =
+              link.to != null
+                ? !isDashboard && isProjectsSection && link.id === 'projects'
+                : !isDashboard && location.pathname === '/' && activeId === link.id
+            return link.to != null ? (
+              <Link
+                key={link.id}
+                to={link.to}
+                onClick={() => setMenuOpen(false)}
+                className={`block py-3 px-4 rounded-lg font-medium text-foreground ${
+                  isActive ? 'text-primary bg-primary/20' : 'hover:bg-muted'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ) : (
               <a
                 key={link.id}
                 href={link.href}
