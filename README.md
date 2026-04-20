@@ -12,6 +12,12 @@
 
 This repository hosts the Cloudflare Pages frontend portfolio application. The repository focuses on application code and deployment. Shared security logic lives in separate repositories to keep this repository minimal and clear.
 
+## Dependency security (npm audit)
+
+CI runs **`npm audit`** via the shared security workflow. If it fails on critical/high findings, run **`npm audit fix`** locally, verify **`npm run build`**, and commit the updated **`package-lock.json`**.
+
+**Remediation log:** [docs/npm-audit-remediation.md](docs/npm-audit-remediation.md) (protobufjs / Grafana Faro transitive chain, resolved with `npm audit fix`).
+
 ## Tech Stack
 
 - Node.js 20 with npm  
