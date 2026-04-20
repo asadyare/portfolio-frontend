@@ -2,6 +2,7 @@
  * Shared list for legacy components (e.g. ProjectsPreview). Prefer `caseStudies.js` for new work.
  */
 import { caseStudies, projectCasePath } from './caseStudies'
+import { formatRepoCreatedAt } from '../utils/formatProjectDate'
 
 export const projects = caseStudies
   .filter((c) => c.featured)
@@ -16,6 +17,7 @@ export const projects = caseStudies
     repoUrl: c.repoUrl,
     badgeUrl: c.badgeUrl,
     featured: c.featured,
+    repoCreatedLabel: formatRepoCreatedAt(c.createdAt),
   }))
 
 /** Projects to show in the home page "Selected projects" section */

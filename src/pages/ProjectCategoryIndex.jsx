@@ -8,6 +8,7 @@ import {
   isValidCategoryId,
   projectCasePath,
 } from '../data/caseStudies'
+import { formatRepoCreatedAt } from '../utils/formatProjectDate'
 
 export default function ProjectCategoryIndex() {
   const { categoryId } = useParams()
@@ -35,7 +36,9 @@ export default function ProjectCategoryIndex() {
   }
 
   const meta = getCategoryMeta(categoryId)
-  const list = getCaseStudiesByCategory(categoryId)
+  const list = [...getCaseStudiesByCategory(categoryId)].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  )
 
   return (
     <div className="w-full min-h-[70vh]">
@@ -89,6 +92,12 @@ export default function ProjectCategoryIndex() {
                           {p.title}
                         </h2>
                         <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{p.caseStudy.summary}</p>
+                        {formatRepoCreatedAt(p.createdAt) && (
+                          <p className="text-xs text-muted-foreground/90 mt-2">
+                            Repo created{' '}
+                            <time dateTime={p.createdAt}>{formatRepoCreatedAt(p.createdAt)}</time>
+                          </p>
+                        )}
                         <div className="flex flex-wrap gap-2 mt-3">
                           {p.tags.slice(0, 4).map((t) => (
                             <span

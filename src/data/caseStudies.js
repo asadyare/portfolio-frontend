@@ -32,6 +32,7 @@ import {
  * @property {string} title
  * @property {string} shortTitle
  * @property {string} repoUrl
+ * @property {string} createdAt ISO 8601 (UTC) — matches GitHub `created_at` for the repo; set for every case study
  * @property {string | undefined} badgeUrl
  * @property {string[]} tags
  * @property {boolean} featured
@@ -76,6 +77,7 @@ export const caseStudies = [
     title: 'CI/CD Security for Portfolio Application',
     shortTitle: 'portfolio-ci-cd-security',
     repoUrl: 'https://github.com/asadyare/portfolio-ci-cd-security',
+    createdAt: '2026-02-02T19:34:09Z',
     badgeUrl:
       'https://github.com/asadyare/portfolio-ci-cd-security/actions/workflows/ci-security.yml/badge.svg',
     tags: ['CI/CD', 'DevSecOps', 'Trivy', 'Gitleaks', 'Semgrep'],
@@ -144,6 +146,7 @@ export const caseStudies = [
     title: 'Portfolio frontend (React + Cloudflare)',
     shortTitle: 'portfolio-frontend',
     repoUrl: 'https://github.com/asadyare/portfolio-frontend',
+    createdAt: '2026-01-16T19:15:55Z',
     tags: ['React', 'Vite', 'Cloudflare Pages', 'Terraform', 'DevSecOps'],
     featured: true,
     icon: CodeBracketIcon,
@@ -203,6 +206,7 @@ export const caseStudies = [
     title: 'Kubernetes deployment & security',
     shortTitle: 'portfolio-k8s-security',
     repoUrl: 'https://github.com/asadyare/portfolio-k8s-security',
+    createdAt: '2026-02-06T15:15:55Z',
     tags: ['Kubernetes', 'Docker', 'Falco', 'Grafana', 'NetworkPolicy'],
     featured: true,
     icon: ServerStackIcon,
@@ -255,6 +259,7 @@ export const caseStudies = [
     title: 'Daily & weekly security automation',
     shortTitle: 'portfolio-daily-security',
     repoUrl: 'https://github.com/asadyare/portfolio-daily-security',
+    createdAt: '2026-02-02T19:34:11Z',
     badgeUrl:
       'https://github.com/asadyare/portfolio-daily-security/actions/workflows/security-alerting-and-reporting.yml/badge.svg',
     tags: ['Automation', 'SBOM', 'Trivy', 'GitHub Actions'],
@@ -309,6 +314,7 @@ export const caseStudies = [
     title: 'Threat modeling & risk analysis',
     shortTitle: 'portfolio-threat-model',
     repoUrl: 'https://github.com/asadyare/portfolio-threat-model',
+    createdAt: '2026-02-02T19:34:13Z',
     tags: ['STRIDE', 'Risk', 'Security design'],
     featured: true,
     icon: ShieldExclamationIcon,
@@ -354,6 +360,7 @@ export const caseStudies = [
     title: 'Baawisan Bank — secure banking web app',
     shortTitle: 'secure-banking-app',
     repoUrl: 'https://github.com/asadyare/secure-banking-app',
+    createdAt: '2026-03-12T16:11:52Z',
     badgeUrl: 'https://github.com/asadyare/secure-banking-app/actions/workflows/ci.yml/badge.svg',
     tags: ['AWS', 'Terraform', 'Supabase', 'Semgrep', 'Trivy', 'Checkov', 'ZAP', 'OIDC'],
     featured: false,

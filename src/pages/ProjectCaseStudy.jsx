@@ -10,6 +10,7 @@ import {
   getCaseStudyBySlug,
   projectCasePath,
 } from '../data/caseStudies'
+import { formatRepoCreatedAt } from '../utils/formatProjectDate'
 
 function Section({ title, children }) {
   return (
@@ -100,6 +101,14 @@ export default function ProjectCaseStudy() {
                 <h1 className="text-3xl md:text-4xl font-bold text-foreground font-display mt-1">
                   {project.title}
                 </h1>
+                {formatRepoCreatedAt(project.createdAt) && (
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Repository created{' '}
+                    <time className="text-foreground/90 font-medium" dateTime={project.createdAt}>
+                      {formatRepoCreatedAt(project.createdAt)}
+                    </time>
+                  </p>
+                )}
                 <p className="text-muted-foreground mt-3 leading-relaxed">{cs.summary}</p>
               </div>
             </div>

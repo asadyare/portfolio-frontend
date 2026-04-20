@@ -16,6 +16,7 @@ export default function Projects() {
             repoUrl={item.repoUrl}
             badgeUrl={item.badgeUrl}
             caseStudyPath={item.caseStudyPath}
+            repoCreatedLabel={item.repoCreatedLabel}
           />
         ))}
       </div>

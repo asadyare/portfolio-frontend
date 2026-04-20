@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
-export default function Card({ title, description, tags, repoUrl, badgeUrl, caseStudyPath }) {
+export default function Card({ title, description, tags, repoUrl, badgeUrl, caseStudyPath, repoCreatedLabel }) {
   return (
     <motion.article
       whileHover={{ y: -6, scale: 1.01 }}
@@ -24,6 +24,12 @@ export default function Card({ title, description, tags, repoUrl, badgeUrl, case
       <p className="mt-2 flex-1 text-gray-700 dark:text-gray-300">
         {description}
       </p>
+
+      {repoCreatedLabel && (
+        <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+          Repo created {repoCreatedLabel}
+        </p>
+      )}
 
       <div className="mt-4 flex flex-wrap gap-2">
         {tags.map(t => (

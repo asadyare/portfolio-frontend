@@ -2,9 +2,11 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
   ArrowTopRightOnSquareIcon,
+  CalendarDaysIcon,
   DocumentTextIcon,
 } from '@heroicons/react/24/outline'
 import { getHomePageCaseStudies, projectCasePath } from '../data/caseStudies'
+import { formatRepoCreatedAt } from '../utils/formatProjectDate'
 
 export default function BlueprintProjectsSection() {
   return (
@@ -78,6 +80,16 @@ export default function BlueprintProjectsSection() {
                     </Link>
                   </div>
                 </div>
+
+                {formatRepoCreatedAt(project.createdAt) && (
+                  <p className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
+                    <CalendarDaysIcon className="w-4 h-4 shrink-0 text-primary/80" aria-hidden />
+                    <span>
+                      Repo created{' '}
+                      <time dateTime={project.createdAt}>{formatRepoCreatedAt(project.createdAt)}</time>
+                    </span>
+                  </p>
+                )}
 
                 <p className="text-sm text-muted-foreground font-medium mb-5">{project.goal}</p>
 

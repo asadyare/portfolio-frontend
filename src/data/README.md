@@ -4,6 +4,7 @@
 
 - **`projectCategories`** — route segments under `/projects/:categoryId` (e.g. `portfolio-projects`, `bank-app-projects`, `healthcare-app-projects`). Add a row when you introduce a new vertical.
 - Each case study has **`category`** (must match a category `id`) and **`slug`** (unique within that category; keep globally unique for clarity).
+- **`createdAt`** — ISO 8601 UTC string matching the GitHub repository **`created_at`** (e.g. from `GET https://api.github.com/repos/OWNER/REPO`). Shown sitewide as “Repo created …”. Add this field for every new project.
 
 URLs:
 
