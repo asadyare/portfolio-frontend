@@ -8,6 +8,7 @@ import {
   CodeBracketIcon,
   ServerStackIcon,
   CalendarDaysIcon,
+  BuildingOffice2Icon,
 } from '@heroicons/react/24/outline'
 
 /** @typedef {{ title: string, items: string[] }} PipelineStage */
@@ -55,7 +56,7 @@ export const projectCategories = [
     id: 'bank-app-projects',
     label: 'Bank application',
     description:
-      'Security CI/CD and controls for regulated banking workloads. Add case studies here as you publish bank-demo repos.',
+      'Baawisan Bank: React + Supabase SPA on AWS (S3, CloudFront, WAFv2) with Terraform, OIDC deploys, and multi-scanner CI/CD — full case study in-repo.',
     order: 2,
   },
   {
@@ -347,6 +348,89 @@ export const caseStudies = [
       diagramCaption: null,
     },
   },
+  {
+    slug: 'secure-banking-app',
+    category: 'bank-app-projects',
+    title: 'Baawisan Bank — secure banking web app',
+    shortTitle: 'secure-banking-app',
+    repoUrl: 'https://github.com/asadyare/secure-banking-app',
+    badgeUrl: 'https://github.com/asadyare/secure-banking-app/actions/workflows/ci.yml/badge.svg',
+    tags: ['AWS', 'Terraform', 'Supabase', 'Semgrep', 'Trivy', 'Checkov', 'ZAP', 'OIDC'],
+    featured: false,
+    icon: BuildingOffice2Icon,
+    accent: 'primary',
+    goal:
+      'Vite + React + TypeScript banking SPA with Supabase; S3 + CloudFront via Terraform; GitHub Actions deploy with OIDC; six overlapping scanners gating merge plus documented incident log.',
+    tech: [
+      'Vite',
+      'React',
+      'TypeScript',
+      'Supabase',
+      'Terraform (AWS)',
+      'CloudFront',
+      'WAFv2',
+      'GitHub Actions',
+      'Husky + Gitleaks',
+    ],
+    concepts: [
+      'Branch ruleset: all scanners green before merge',
+      'OIDC to AWS — no long-lived keys in CI',
+      'In-repo case study: 19 blocking incidents with PR/run evidence',
+    ],
+    caseStudy: {
+      summary:
+        'A portfolio-grade “Baawisan Bank” web app: modern frontend stack, Supabase for auth and data, and AWS static hosting (private S3 origin, CloudFront, WAFv2) provisioned as code. CI/CD runs Semgrep, CodeQL (default setup), Trivy (fs + IaC + image posture), Checkov on Terraform, ZAP baseline on the built SPA, TruffleHog, Gitleaks (also in git hooks), Dependabot, Dependency Review, npm audit, and CycloneDX SBOM — with a written case study folder documenting 19 blocking incidents from first green pipeline to first live deploy.',
+      context: [
+        'The repository doubles as a teaching artefact: `docs/case-study/` walks through architecture (runtime, CI/CD, OIDC trust), per-scanner controls, and a chronological incident log with deep-dives and suppression rationale.',
+        'Local developer hygiene matches CI: Husky pre-commit runs lint-staged and `gitleaks protect --staged`; pre-push runs full lint and `gitleaks detect` on the repo.',
+      ],
+      securityRequirements: [
+        'No merge to default branch until required checks pass (including Code scanning / CodeQL expectations).',
+        'Terraform and app changes reviewed with IaC scanning (Checkov, Trivy IaC) and justified suppressions only in-tree.',
+        'Secrets blocked at commit and push time; no plaintext AWS credentials in workflows — OIDC role scoped to bucket + distribution.',
+        'DAST baseline (ZAP) against a built preview to catch missing security headers and similar regressions.',
+        'Supply-chain discipline: pinned action SHAs where needed (e.g. after upstream tag incidents), SBOM artefacts for provenance.',
+      ],
+      pipeline: [
+        {
+          title: 'CI (ci.yml)',
+          items: [
+            'Lint, tests, production build, npm audit (high+), CycloneDX SBOM upload.',
+            'Semgrep, Trivy filesystem + SARIF, Trivy Dockerfile/IaC, Checkov on Terraform, ZAP baseline against the SPA preview.',
+            'TruffleHog filesystem scan; Gitleaks; hardened-runner egress audit on key jobs.',
+            'Dependency Review on pull requests.',
+          ],
+        },
+        {
+          title: 'Supporting workflows',
+          items: [
+            'Dedicated secret-scan workflow; Terraform plan/validate workflow; frontend deploy to S3 + CloudFront invalidation via OIDC.',
+            'Dependabot for npm, Actions, Docker, and Terraform provider bumps.',
+          ],
+        },
+        {
+          title: 'Deploy & runtime',
+          items: [
+            'Static hosting pattern: CloudFront in front of private S3; WAFv2; least-privilege IAM for deploy role.',
+            'Supabase env configuration for local and hosted environments (`VITE_SUPABASE_*`).',
+          ],
+        },
+      ],
+      controls: [
+        'Documented scanner matrix and “why this tool” rationale in `docs/case-study/03-security-controls.md`.',
+        'Every suppression traceable to an incident write-up (e.g. Semgrep CloudFront TLS, Trivy WAF/KMS false positives).',
+        'Terraform README + Checkov custom policies for organisation-specific guardrails.',
+      ],
+      evidence: [
+        'Public repo: https://github.com/asadyare/secure-banking-app',
+        'Case study index: https://github.com/asadyare/secure-banking-app/tree/main/docs/case-study',
+        'Incident log and per-incident files under `docs/case-study/` (19 items with PR and workflow proof).',
+        'CI badge and workflow run history on GitHub Actions.',
+      ],
+      diagramUrl: null,
+      diagramCaption: null,
+    },
+  },
 ]
 
 export function getCaseStudyBySlug(slug) {
@@ -376,4 +460,9 @@ export function getCaseStudyByCategoryAndSlug(categoryId, slug) {
 
 export function getAllCaseStudySlugs() {
   return caseStudies.map((c) => c.slug)
+}
+
+/** Case studies shown in the homepage “Core Projects” grid (portfolio vertical only) */
+export function getHomePageCaseStudies() {
+  return caseStudies.filter((c) => c.category === 'portfolio-projects')
 }

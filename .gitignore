@@ -1,4 +1,8 @@
 node_modules
+dist
+dist-ssr
+*.local
+
 terraform/terraform.tfvars
 terraform.tfvars
 .terraform/

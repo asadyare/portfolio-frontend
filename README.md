@@ -25,7 +25,7 @@ This repository hosts the Cloudflare Pages frontend portfolio application. The r
 
 - **`/projects`** — hub: pick a vertical (portfolio, bank, healthcare, …).
 - **`/projects/portfolio-projects`** — case studies for this portfolio’s repos (CI/CD, frontend, K8s, etc.).
-- **`/projects/bank-app-projects`** / **`/projects/healthcare-app-projects`** — placeholders until you add repos; same pattern.
+- **`/projects/bank-app-projects`** — includes **secure-banking-app** (Baawisan Bank case study). **`/projects/healthcare-app-projects`** — placeholder until you add repos.
 - **`/projects/:categoryId/:slug`** — full case study (e.g. `/projects/portfolio-projects/portfolio-ci-cd-security`). Data in **`src/data/caseStudies.js`** (`category` + `slug`); categories in **`projectCategories`**.
 - Old one-segment URLs like **`/projects/portfolio-ci-cd-security`** redirect to the new path.
 

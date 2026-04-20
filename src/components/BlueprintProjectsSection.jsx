@@ -4,7 +4,7 @@ import {
   ArrowTopRightOnSquareIcon,
   DocumentTextIcon,
 } from '@heroicons/react/24/outline'
-import { caseStudies, projectCasePath } from '../data/caseStudies'
+import { getHomePageCaseStudies, projectCasePath } from '../data/caseStudies'
 
 export default function BlueprintProjectsSection() {
   return (
@@ -39,7 +39,7 @@ export default function BlueprintProjectsSection() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {caseStudies.map((project, i) => {
+          {getHomePageCaseStudies().map((project, i) => {
             const Icon = project.icon
             return (
               <motion.div

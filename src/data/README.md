@@ -17,4 +17,6 @@ Helpers: `projectCasePath(categoryId, slug)`, `getCaseStudiesByCategory`, `getCa
 
 ## `projectsList.js`
 
-Featured projects derived from `caseStudies.js` (includes `caseStudyPath` for cards).
+Featured projects derived from `caseStudies.js` (includes `caseStudyPath` for cards). Use `featured: true` only for items you want in that list.
+
+The homepage **Core Projects** grid uses **`getHomePageCaseStudies()`** (`category === 'portfolio-projects'`) so bank/healthcare case studies stay under `/projects/...` only unless you change that filter.
