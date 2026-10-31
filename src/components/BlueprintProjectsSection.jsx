@@ -24,10 +24,11 @@ export default function BlueprintProjectsSection() {
             Core <span className="text-gradient-neon">Projects</span>
           </h2>
           <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
-            Each card links to a public GitHub repo and a{' '}
+            Each card links to a public repository and a{' '}
             <strong className="text-foreground">case study</strong> page with context, pipeline stages, and evidence.
-            Together they span portfolio tooling, bank-app and healthcare demos: shared security workflows, AWS hosting,
-            Kubernetes, post-merge assurance, and threat modeling.
+            Together they span AWS account guardrails, portfolio tooling, bank-app and healthcare demos: a read-only
+            CIS and FSBP scanner, GitLab CI for a Terraform baseline, shared security workflows, AWS hosting,
+            Kubernetes, post-merge assurance, and threat modelling.
           </p>
           <p className="mt-6">
             <Link
