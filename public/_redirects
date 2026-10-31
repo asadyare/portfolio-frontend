@@ -1,2 +1,6 @@
-# Cloudflare Pages: SPA fallback for /projects, /projects/:category, /projects/:category/:slug
-/*    /index.html   200
+# Do not add a catch-all rewrite to index.html in this file.
+# That rewrite returns the SPA for every unknown path, including
+# /robots.txt, /sitemap.xml, and /.well-known/security.txt when the
+# file is missing, and it forces unknown URLs to HTTP 200.
+# Static files in this directory are served as themselves.
+# Client routes and the 404 status are handled by functions/_middleware.js.

@@ -10,7 +10,7 @@ export default function Footer() {
           </a>
         </p>
         <p className="text-xs text-muted-foreground/80">
-          © {new Date().getFullYear()} Asad Ali ·{' '}
+          © {new Date().getFullYear()} Asad Ali Hassan ·{' '}
           <a
             href="https://github.com/asadyare"
             target="_blank"

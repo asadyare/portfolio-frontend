@@ -1,12 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import {
-  ArrowTopRightOnSquareIcon,
-  CalendarDaysIcon,
-  DocumentTextIcon,
-} from '@heroicons/react/24/outline'
-import { getHomePageCaseStudies, projectCasePath } from '../data/caseStudies'
-import { formatRepoCreatedAt } from '../utils/formatProjectDate'
+import { ArrowTopRightOnSquareIcon, DocumentTextIcon } from '@heroicons/react/24/outline'
+import { getHomePageCaseStudies, projectCasePath, projectRepos } from '../data/caseStudies'
 
 export default function BlueprintProjectsSection() {
   return (
@@ -24,11 +19,9 @@ export default function BlueprintProjectsSection() {
             Core <span className="text-gradient-neon">Projects</span>
           </h2>
           <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
-            Each card links to a public repository and a{' '}
-            <strong className="text-foreground">case study</strong> page with context, pipeline stages, and evidence.
-            Together they span AWS account guardrails, portfolio tooling, bank-app and healthcare demos: a read-only
-            CIS and FSBP scanner, GitLab CI for a Terraform baseline, shared security workflows, AWS hosting,
-            Kubernetes, post-merge assurance, and threat modelling.
+            AWS account guardrails first (the scanner and the GitLab pipeline), then the secure banking app, the
+            healthcare apps, then the portfolio platform (this site plus the CI, Kubernetes, scheduled scanning, and
+            threat-model repositories).
           </p>
           <p className="mt-6">
             <Link
@@ -61,38 +54,31 @@ export default function BlueprintProjectsSection() {
                     <h3 className="text-xl font-semibold text-foreground leading-tight">{project.shortTitle}</h3>
                   </div>
 
-                  <div className="flex flex-col gap-2 shrink-0">
-                    <a
-                      href={project.repoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-border hover:border-glow hover:bg-primary/10 transition-colors text-sm text-foreground"
-                      aria-label={`Open ${project.shortTitle} repository`}
-                    >
-                      <ArrowTopRightOnSquareIcon className="w-4 h-4" />
-                      Repo
-                    </a>
-                    <Link
-                      to={projectCasePath(project.category, project.slug)}
-                      className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-primary/40 bg-primary/10 hover:bg-primary/20 transition-colors text-sm font-medium text-primary"
-                    >
-                      <DocumentTextIcon className="w-4 h-4" />
-                      Case study
-                    </Link>
-                  </div>
+                  <Link
+                    to={projectCasePath(project.category, project.slug)}
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-primary/40 bg-primary/10 hover:bg-primary/20 transition-colors text-sm font-medium text-primary shrink-0"
+                  >
+                    <DocumentTextIcon className="w-4 h-4" />
+                    Case study
+                  </Link>
                 </div>
 
-                {formatRepoCreatedAt(project.createdAt) && (
-                  <p className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-                    <CalendarDaysIcon className="w-4 h-4 shrink-0 text-primary/80" aria-hidden />
-                    <span>
-                      Repo created{' '}
-                      <time dateTime={project.createdAt}>{formatRepoCreatedAt(project.createdAt)}</time>
-                    </span>
-                  </p>
-                )}
+                <p className="text-sm text-muted-foreground font-medium mb-4">{project.goal}</p>
 
-                <p className="text-sm text-muted-foreground font-medium mb-5">{project.goal}</p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {projectRepos(project).map((repo) => (
+                    <a
+                      key={repo.url}
+                      href={repo.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-border hover:border-glow hover:bg-primary/10 transition-colors text-xs text-foreground"
+                    >
+                      <ArrowTopRightOnSquareIcon className="w-3.5 h-3.5" />
+                      {repo.label}
+                    </a>
+                  ))}
+                </div>
 
                 <div className="flex flex-wrap gap-2 mb-5">
                   {project.tech.map((t) => (

@@ -54,7 +54,7 @@ export default function About() {
           About
         </h2>
         <p className="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">
-          I am a DevSecOps engineer who builds secure, automated delivery systems. I focus on practical testing, policy as code, and reproducible infrastructure.
+          I am a part-time DevSecOps Apprentice at Cyber Agoge. I build Python and AWS security automation and secure CI/CD, and I am open to junior and mid-level DevSecOps and cloud security roles.
         </p>
         <p className="mt-3 text-gray-600 dark:text-gray-400 leading-relaxed">
           From threat modeling and secure CI/CD pipelines to Kubernetes security and observability, I help teams ship faster without compromising security.

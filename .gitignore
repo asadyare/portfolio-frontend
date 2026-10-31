@@ -2,6 +2,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.wrangler/
 
 terraform/terraform.tfvars
 terraform.tfvars

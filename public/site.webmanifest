@@ -1,0 +1,13 @@
+{
+  "name": "Asad Ali Hassan",
+  "short_name": "Asad Ali Hassan",
+  "description": "DevSecOps Apprentice portfolio. Python and AWS security automation, secure CI/CD. Birmingham and remote.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1217",
+  "theme_color": "#0f172a",
+  "icons": [
+    { "src": "/favicon-32x32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

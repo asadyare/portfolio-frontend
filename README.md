@@ -1,4 +1,10 @@
-# Frontend Portfolio
+# Asad Ali Hassan — DevSecOps portfolio
+
+Live site: [https://asads-portfolio.uk/](https://asads-portfolio.uk/)
+
+![Home page of asads-portfolio.uk](docs/home-page.png)
+
+Part-time DevSecOps Apprentice at Cyber Agoge (since November 2024). The public work is Python and AWS security automation and secure CI/CD. Open to junior and mid-level DevSecOps and cloud security roles. Birmingham, and remote.
 
 [![CI Security](https://github.com/asadyare/portfolio-ci-cd-security/actions/workflows/ci-security.yml/badge.svg)](https://github.com/asadyare/portfolio-ci-cd-security/actions/workflows/ci-security.yml)
 
@@ -32,14 +38,16 @@ Aligned with **`BlueprintSkillsSection`** (home “Core Technologies”) and too
 
 ### Project case studies (by domain)
 
-- **`/projects`** — hub: pick a vertical (portfolio, bank, healthcare, …).
-- **`/projects/aws-guardrail-projects`** — **AWS Guardrail Pipeline** (GitLab CI, Terraform baseline, not applied in default jobs) and **AWS Guardrail Scanner** (read-only Python / boto3 CLI).
-- **`/projects/portfolio-projects`** — case studies for this portfolio’s repos (CI/CD, frontend, K8s, etc.).
-- **`/projects/bank-app-projects`** — **Bank app demo** (AWS, Terraform, in-repo threat model / case study; route slug `secure-banking-app`). **`/projects/healthcare-app-projects`** — **healthcare-apps** (`Healthcare_Apps`: EKS/Terraform, hardened CI/CD, threat model + case study).
-- **`/projects/:categoryId/:slug`** — full case study (e.g. `/projects/portfolio-projects/portfolio-ci-cd-security`). Data in **`src/data/caseStudies.js`** (`category` + `slug`); categories in **`projectCategories`**.
-- Old one-segment URLs like **`/projects/portfolio-ci-cd-security`** redirect to the new path.
+Shown in this order: AWS guardrails, the secure banking app, the healthcare apps, then the portfolio platform.
 
-`public/_redirects` ensures Cloudflare Pages serves `index.html` for client-side routes.
+- **`/projects`** — hub.
+- **`/projects/aws-guardrail-projects`** — AWS Guardrail Pipeline (GitLab CI, Terraform baseline, not applied in the default jobs) and AWS Guardrail Scanner (read-only Python and boto3).
+- **`/projects/bank-app-projects/secure-banking-app`** — banking-style SPA (slug unchanged).
+- **`/projects/healthcare-app-projects/healthcare-apps`** — CareConnect360, MedTrack Pro, and HealthHub Mobile.
+- **`/projects/portfolio-projects/portfolio-platform`** — this site plus the CI/CD, Kubernetes, daily security, and threat-model repositories, with every repo link kept.
+- Old URLs such as **`/projects/portfolio-ci-cd-security`** redirect to the portfolio platform study.
+
+`public/_redirects` does not rewrite every path to `index.html`. `functions/_middleware.js` serves the app for known routes and returns 404 for unknown ones, so `robots.txt`, `sitemap.xml`, and `.well-known/security.txt` stay real files.
 
 ## Repository Scope
 
@@ -117,7 +125,7 @@ After saving, the next push to `main` (or the next run of the frontend CI workfl
 
 ### `/metrics` on production (Cloudflare Pages Functions)
 
-The site serves **`GET /metrics`** (Prometheus text) via a **Pages Function** at [`functions/metrics.js`](functions/metrics.js). It runs on Cloudflare’s edge—**not** the same as nginx metrics from the Kubernetes container. Counters increment when `/metrics` is scraped (e.g. from the Monitoring section or `/dashboard`).
+The site serves **`GET /metrics`** (Prometheus text) via a **Pages Function** at [`functions/metrics.js`](functions/metrics.js). The page that reads it is labelled a **demo**. Connection gauges are fixed samples, not a live nginx server. The request counter increases when `/metrics` is fetched and resets when the isolate restarts. It is **not** the nginx-prometheus-exporter from the Kubernetes container.
 
 **Requirements:**
 

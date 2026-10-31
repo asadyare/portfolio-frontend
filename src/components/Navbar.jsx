@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import profilePhoto from '../assets/profile-photo.png'
-
 const navLinks = [
   { href: '/#top', id: 'top', label: 'Home' },
   { href: '/#skills', id: 'skills', label: 'Skills' },
@@ -80,15 +78,26 @@ export default function Navbar() {
       <div className="w-full px-4 py-3 flex items-center justify-between">
         <a href="/#top" className="flex items-center space-x-3 group">
           <div className="relative w-11 h-11 rounded-2xl bg-card ring-1 ring-border overflow-hidden shadow-[var(--shadow-neon)] group-hover:ring-primary/60 transition-all duration-300">
-            <img
-              src={profilePhoto}
-              alt="Asad profile"
-              className="w-full h-full object-cover opacity-95 group-hover:opacity-100 transition-opacity duration-300"
-            />
+            <picture>
+              <source srcSet="/images/profile.avif" type="image/avif" />
+              <img
+                src="/images/profile.webp"
+                alt="Asad Ali Hassan"
+                width={44}
+                height={44}
+                decoding="async"
+                fetchPriority="low"
+                className="w-full h-full object-cover opacity-95 group-hover:opacity-100 transition-opacity duration-300"
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-primary-500/20 mix-blend-soft-light" />
           </div>
-          <span className="font-semibold text-lg tracking-tight text-foreground">
-            Asad Ali <span className="text-primary font-medium">| DevSecOps Engineer</span>
+          <span className="font-semibold text-base sm:text-lg tracking-tight text-foreground leading-tight">
+            Asad Ali Hassan
+            <span className="text-primary font-medium">
+              <span className="hidden sm:inline"> · </span>
+              <span className="block sm:inline text-xs sm:text-base">DevSecOps Apprentice</span>
+            </span>
           </span>
         </a>
 
@@ -109,7 +118,7 @@ export default function Navbar() {
             )
           })}
           <Link to="/dashboard" className={linkClass(isDashboard)}>
-            Live metrics
+            Metrics demo
           </Link>
           <button
             onClick={() => setDarkMode(!darkMode)}
@@ -176,7 +185,7 @@ export default function Navbar() {
               isDashboard ? 'text-primary bg-primary/20' : 'hover:bg-muted'
             }`}
           >
-            Live metrics
+            Metrics demo
           </Link>
         </div>
       )}

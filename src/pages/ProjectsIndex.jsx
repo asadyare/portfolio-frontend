@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import { projectCategories, caseStudies } from '../data/caseStudies'
+import { usePageMeta } from '../hooks/usePageMeta'
 
 function countInCategory(categoryId) {
   return caseStudies.filter((c) => c.category === categoryId).length
@@ -9,6 +10,12 @@ function countInCategory(categoryId) {
 
 /** Hub: /projects — choose a vertical (portfolio, bank, healthcare, …) */
 export default function ProjectsIndex() {
+  usePageMeta({
+    title: 'Projects | Asad Ali Hassan',
+    description:
+      'Case studies: AWS guardrails, a secure banking app demo, healthcare applications, and the portfolio platform.',
+    path: '/projects',
+  })
   const sorted = [...projectCategories].sort((a, b) => a.order - b.order)
 
   return (
@@ -21,8 +28,7 @@ export default function ProjectsIndex() {
               Case studies by <span className="text-gradient-neon">domain</span>
             </h1>
             <p className="text-muted-foreground mt-5 max-w-2xl mx-auto leading-relaxed">
-              Newest case studies are the AWS account guardrails. Portfolio-related repositories live under{' '}
-              <code className="text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">/projects/portfolio-projects</code>.
+              AWS account guardrails, the secure banking app, the healthcare apps, and the portfolio platform.
             </p>
           </motion.div>
         </div>
@@ -51,9 +57,7 @@ export default function ProjectsIndex() {
                     <p className="text-xs text-muted-foreground mt-3 font-mono">
                       /projects/{cat.id}
                       {n > 0 ? (
-                        <span className="ml-2 text-primary">
-                          · {n} {n === 1 ? 'case study' : 'case studies'}
-                        </span>
+                        <span className="ml-2 text-primary">· {n} {n === 1 ? 'case study' : 'case studies'}</span>
                       ) : (
                         <span className="ml-2">· coming soon</span>
                       )}

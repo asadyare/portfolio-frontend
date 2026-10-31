@@ -1,5 +1,7 @@
 # npm audit remediation (critical vulnerabilities)
 
+`@grafana/faro-web-sdk` and `@grafana/faro-web-tracing` are no longer dependencies. Nothing in `src/` imported them. `@babel/core`, `@babel/eslint-parser`, and `@babel/preset-react` are devDependencies; only ESLint uses them.
+
 ## Issue (CI failure)
 
 GitHub Actions runs **`npm audit`** as part of the shared security workflow. The pipeline failed with:
