@@ -94,9 +94,8 @@ export default function BlueprintSkillsSection() {
             Core <span className="text-gradient-neon">Technologies</span>
           </h2>
           <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
-            Consolidated from every public project linked here: portfolio DevSecOps repos, the bank-app AWS demo, and
-            Healthcare_Apps (EKS/Terraform monorepo)—same toolchain I highlight for platform, application, and security
-            engineering roles.
+            Consolidated from the public projects linked here: AWS guardrails, the banking demo, Healthcare_Apps, and the
+            portfolio platform. The same toolchain I use for junior and mid-level DevSecOps and cloud security work.
           </p>
         </motion.div>
 

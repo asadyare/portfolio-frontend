@@ -7,6 +7,7 @@ import {
   ArrowLeftIcon,
 } from '@heroicons/react/24/outline'
 import { useNginxMetrics } from '../hooks/useNginxMetrics'
+import { usePageMeta } from '../hooks/usePageMeta'
 import { getMetricValue, NGINX_METRIC_LABELS } from '../utils/parsePrometheusText'
 
 function formatValue(n) {
@@ -16,6 +17,12 @@ function formatValue(n) {
 }
 
 export default function DashboardLive() {
+  usePageMeta({
+    title: 'Metrics demo | Asad Ali Hassan',
+    description:
+      'Demonstration Prometheus text. Connection gauges are fixed samples, not a live nginx server. The request counter increases when /metrics is fetched.',
+    path: '/dashboard',
+  })
   const { metrics, error, loading, lastFetch, refresh } = useNginxMetrics(5000)
   const hasNumbers = NGINX_METRIC_LABELS.some((m) => getMetricValue(metrics, m.key) !== undefined)
 
@@ -36,13 +43,16 @@ export default function DashboardLive() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-10"
       >
-        <span className="font-semibold text-sm text-primary tracking-widest uppercase">Live</span>
+        <span className="font-semibold text-sm text-primary tracking-widest uppercase">Demo</span>
         <h1 className="text-3xl md:text-4xl font-bold mt-2 text-foreground font-display">
-          Live <span className="text-gradient-neon">observability</span>
+          Metrics <span className="text-gradient-neon">demo</span>
         </h1>
         <p className="text-muted-foreground mt-3 max-w-xl mx-auto text-sm leading-relaxed">
-          Demonstrates how this site exposes a standard Prometheus scrape target on the same host. On Cloudflare
-          Pages that&apos;s an edge function; on Kubernetes it&apos;s nginx + nginx-prometheus-exporter.
+          This page is a demonstration of a Prometheus text endpoint on the same host. The connection gauges are
+          fixed sample values, not a live nginx server. The request counter increases when this page fetches{' '}
+          <code className="text-xs bg-secondary px-1 py-0.5 rounded">/metrics</code>, and it resets when the
+          Cloudflare isolate restarts. A Kubernetes deployment of this image can expose real nginx-prometheus-exporter
+          numbers under the same names. That is not what you are looking at here.
         </p>
         <p className="text-muted-foreground mt-2 text-xs">
           {lastFetch && <span>Last update {lastFetch.toLocaleTimeString()} · </span>}

@@ -22,16 +22,16 @@ export default function BlueprintMonitoringSection() {
           viewport={{ once: true }}
           className="text-center mb-10"
         >
-          <span className="font-semibold text-sm text-primary tracking-widest uppercase">Observability</span>
+          <span className="font-semibold text-sm text-primary tracking-widest uppercase">Demo</span>
           <h2 className="text-3xl md:text-4xl font-bold mt-3 text-foreground font-display">
-            Monitoring <span className="text-gradient-neon">Stack</span>
+            Metrics <span className="text-gradient-neon">demo</span>
           </h2>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto text-sm leading-relaxed">
-            Same-origin <code className="text-xs bg-secondary px-1 py-0.5 rounded">GET /metrics</code> — Prometheus text
-            from Cloudflare (edge) when deployed on Pages, or from the container image when running on Kubernetes.
-            Full view:{' '}
+            Same-origin <code className="text-xs bg-secondary px-1 py-0.5 rounded">GET /metrics</code> is a
+            demonstration, not a live nginx scrape. The connection gauges below are fixed samples. The request counter
+            counts fetches of this endpoint and resets when the edge isolate restarts. Full view:{' '}
             <Link to="/dashboard" className="text-primary font-medium hover:underline">
-              Live metrics
+              Metrics demo
             </Link>
             {lastFetch && !loading && (
               <span className="block sm:inline sm:before:content-['_·_'] mt-1 sm:mt-0 text-xs">

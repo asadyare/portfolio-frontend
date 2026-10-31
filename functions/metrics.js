@@ -7,11 +7,11 @@
  */
 let scrapeCount = 0
 
-export async function onRequestGet() {
-  scrapeCount += 1
+function metricsBody() {
   const now = Math.floor(Date.now() / 1000)
 
-  const body = `# HELP nginx_http_requests_total Total /metrics scrapes served by Cloudflare Pages Function
+  const body = `# Demo endpoint. Connection gauges below are fixed samples, not a live nginx process.
+# HELP nginx_http_requests_total Total /metrics scrapes served by this Cloudflare Pages Function isolate
 # TYPE nginx_http_requests_total counter
 nginx_http_requests_total ${scrapeCount}
 # HELP nginx_connections_active Simulated active connections (edge)
@@ -37,4 +37,19 @@ portfolio_edge_unixtime_seconds ${now}
       'Cache-Control': 'no-store',
     },
   })
+}
+
+export async function onRequest({ request }) {
+  if (request.method !== 'GET' && request.method !== 'HEAD') {
+    return new Response('Method not allowed', {
+      status: 405,
+      headers: { Allow: 'GET, HEAD', 'Content-Type': 'text/plain; charset=utf-8' },
+    })
+  }
+  if (request.method === 'GET') scrapeCount += 1
+  const response = metricsBody()
+  if (request.method === 'HEAD') {
+    return new Response(null, { status: 200, headers: response.headers })
+  }
+  return response
 }

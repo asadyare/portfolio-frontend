@@ -2,22 +2,26 @@
 
 ## `caseStudies.js`
 
-- **`projectCategories`** — route segments under `/projects/:categoryId` (e.g. `portfolio-projects`, `bank-app-projects`, `healthcare-app-projects`). Add a row when you introduce a new vertical.
-- Each case study has **`category`** (must match a category `id`) and **`slug`** (unique within that category; keep globally unique for clarity).
-- **`createdAt`** — ISO 8601 UTC string matching the GitHub repository **`created_at`** (e.g. from `GET https://api.github.com/repos/OWNER/REPO`). Shown sitewide as “Repo created …”. Add this field for every new project.
+- **`projectCategories`** — route segments under `/projects/:categoryId`. Order on the site is AWS guardrails, the banking demo, healthcare applications, then the portfolio platform.
+- Each case study has **`category`** (must match a category `id`), **`slug`**, and **`order`**.
+- **`repos`** — every public repository that belongs to that case study. The portfolio platform keeps the frontend, CI/CD, Kubernetes, daily security, and threat-model links on one study.
+- **`legacySlugs`** — old slugs that redirect to the portfolio platform study.
 
 URLs:
 
 - `/projects` — hub
-- `/projects/portfolio-projects` — list of portfolio case studies
-- `/projects/portfolio-projects/my-slug` — one case study
+- `/projects/aws-guardrails` — AWS guardrails
+- `/projects/aws-guardrails/aws-guardrails` — that case study
+- `/projects/bank-app-projects/secure-banking-app`
+- `/projects/healthcare-app-projects/healthcare-apps`
+- `/projects/portfolio-projects/portfolio-platform`
 
-Helpers: `projectCasePath(categoryId, slug)`, `getCaseStudiesByCategory`, `getCaseStudyByCategoryAndSlug`.
+Helpers: `projectCasePath(categoryId, slug)`, `projectRepos`, `getCaseStudiesByCategory`, `getCaseStudyByCategoryAndSlug`.
 
-**Legacy:** `/projects/<old-slug-only>` redirects if `<old-slug-only>` matches a case study `slug`.
+**Legacy:** `/projects/<old-slug>` and `/projects/portfolio-projects/<old-slug>` redirect when `<old-slug>` is one of `legacySlugs` (the five repositories that are now the portfolio platform study).
+
+Canonical paths for the sitemap also live in `shared/routes.js`. A test checks the two lists match.
 
 ## `projectsList.js`
 
-Featured projects derived from `caseStudies.js` (includes `caseStudyPath` for cards). Use `featured: true` only for items you want in that list.
-
-The homepage **Core Projects** grid uses **`getHomePageCaseStudies()`**: all entries with **`featured: true`**, sorted by **`projectCategories`** `order` then `slug`. Set **`featured: false`** on a case study to hide it from the home grid only.
+Featured projects derived from `caseStudies.js`. The homepage grid uses **`getHomePageCaseStudies()`**, sorted by **`order`**.

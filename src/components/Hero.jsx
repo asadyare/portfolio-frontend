@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { ArrowRightIcon, CubeIcon, ShieldCheckIcon, CodeBracketIcon, BeakerIcon } from '@heroicons/react/24/outline'
+import { ArrowRightIcon, CubeIcon, ShieldCheckIcon, BeakerIcon } from '@heroicons/react/24/outline'
 
 export default function Hero() {
   const skills = [
@@ -20,7 +20,7 @@ export default function Hero() {
       >
         {/* Left content */}
         <div>
-          <p className="text-sm font-medium text-primary-500 uppercase tracking-wider mb-2">DevSecOps Engineer</p>
+          <p className="text-sm font-medium text-primary-500 uppercase tracking-wider mb-2">DevSecOps Apprentice</p>
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">
             <span className="bg-gradient-to-r from-primary-400 via-primary-500 to-indigo-600 bg-clip-text text-transparent">
               Secure pipelines,

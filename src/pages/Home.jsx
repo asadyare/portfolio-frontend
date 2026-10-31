@@ -1,16 +1,20 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import BlueprintHeroSection from '../components/BlueprintHeroSection'
-import BlueprintSkillsSection from '../components/BlueprintSkillsSection'
-import BlueprintCertificationsSection from '../components/BlueprintCertificationsSection'
-import BlueprintProjectsSection from '../components/BlueprintProjectsSection'
-import BlueprintPipelineSection from '../components/BlueprintPipelineSection'
-import BlueprintMonitoringSection from '../components/BlueprintMonitoringSection'
-import BlueprintRepoStructureSection from '../components/BlueprintRepoStructureSection'
-import BlueprintContactSection from '../components/BlueprintContactSection'
+import { HOME_DESCRIPTION, HOME_TITLE } from '../../shared/routes.js'
+import { usePageMeta } from '../hooks/usePageMeta'
+
+const BlueprintSkillsSection = lazy(() => import('../components/BlueprintSkillsSection'))
+const BlueprintCertificationsSection = lazy(() => import('../components/BlueprintCertificationsSection'))
+const BlueprintProjectsSection = lazy(() => import('../components/BlueprintProjectsSection'))
+const BlueprintPipelineSection = lazy(() => import('../components/BlueprintPipelineSection'))
+const BlueprintMonitoringSection = lazy(() => import('../components/BlueprintMonitoringSection'))
+const BlueprintRepoStructureSection = lazy(() => import('../components/BlueprintRepoStructureSection'))
+const BlueprintContactSection = lazy(() => import('../components/BlueprintContactSection'))
 
 export default function Home() {
   const location = useLocation()
+  usePageMeta({ title: HOME_TITLE, description: HOME_DESCRIPTION, path: '/' })
 
   useEffect(() => {
     if (!location.hash) return
@@ -25,13 +29,15 @@ export default function Home() {
   return (
     <div className="w-full">
       <BlueprintHeroSection />
-      <BlueprintSkillsSection />
-      <BlueprintCertificationsSection />
-      <BlueprintProjectsSection />
-      <BlueprintPipelineSection />
-      <BlueprintMonitoringSection />
-      <BlueprintRepoStructureSection />
-      <BlueprintContactSection />
+      <Suspense fallback={null}>
+        <BlueprintSkillsSection />
+        <BlueprintCertificationsSection />
+        <BlueprintProjectsSection />
+        <BlueprintPipelineSection />
+        <BlueprintMonitoringSection />
+        <BlueprintRepoStructureSection />
+        <BlueprintContactSection />
+      </Suspense>
     </div>
   )
 }

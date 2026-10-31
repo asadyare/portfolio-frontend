@@ -8,6 +8,7 @@ import {
   CloudIcon,
   ServerStackIcon,
   AcademicCapIcon,
+  DocumentArrowDownIcon,
 } from '@heroicons/react/24/outline'
 
 export default function BlueprintHeroSection() {
@@ -18,26 +19,20 @@ export default function BlueprintHeroSection() {
     >
       {/* Background: hero image + dark gradient + grid, like Portfolio B */}
       <div className="absolute inset-0 z-[5]">
-        {/* Hero background image (place hero-bg.jpg in /public or adjust path) */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-10 dark:opacity-10"
-          style={{
-            backgroundImage: "url('/hero-bg.jpg')",
-            // Reduce neon "shiny" look: less contrast + a bit less saturation.
-            filter: 'saturate(1.0) contrast(0.92)',
-          }}
-        />
-        {/* Vignette (dark edges, clearer center) */}
-        <div
-          className="absolute inset-0 opacity-40 dark:opacity-65"
-          style={{
-            background:
-              'radial-gradient(circle at center,' +
-              ' rgba(0,0,0,0) 0%,' +
-              ' rgba(0,0,0,0.04) 55%,' +
-              ' rgba(0,0,0,0.22) 100%)',
-          }}
-        />
+        <picture>
+          <source srcSet="/hero-bg.avif" type="image/avif" />
+          <source srcSet="/hero-bg.webp" type="image/webp" />
+          <img
+            src="/hero-bg.jpg"
+            alt=""
+            width={1280}
+            height={720}
+            fetchPriority="high"
+            decoding="async"
+            className="hero-photo absolute inset-0 h-full w-full object-cover opacity-10"
+          />
+        </picture>
+        <div className="hero-vignette absolute inset-0 opacity-40 dark:opacity-65" />
 
         {/* Grid overlay (very subtle) */}
         <div className="absolute inset-0 grid-pattern opacity-0 dark:opacity-10" />
@@ -58,7 +53,7 @@ export default function BlueprintHeroSection() {
           >
             <ShieldCheckIcon className="w-4 h-4 text-primary" />
             <span className="font-display font-medium text-sm text-primary">
-              DevSecOps Engineer · Portfolio
+              DevSecOps Apprentice · Cyber Agoge
             </span>
           </motion.div>
 
@@ -71,10 +66,9 @@ export default function BlueprintHeroSection() {
           </h1>
 
           <p className="text-lg md:text-xl text-muted-foreground font-body max-w-2xl mx-auto mb-10 leading-relaxed">
-            I design and ship security automation you can audit: reusable GitHub Actions with OIDC where deploys touch
-            AWS, layered scanners (secrets, SAST, SCA, IaC, containers), hardened Kubernetes and observability hooks, plus
-            Terraform on Cloudflare and AWS—backed by public repos with STRIDE-style threat write-ups and case-study
-            evidence.
+            Part-time DevSecOps Apprentice at Cyber Agoge since November 2024. I build Python and AWS security
+            automation and secure CI/CD, and I am open to junior and mid-level DevSecOps and cloud security roles.
+            Based in Birmingham, and open to remote work.
           </p>
 
           {/* Scannable strip for recruiters (~10s scan) */}
@@ -175,6 +169,14 @@ export default function BlueprintHeroSection() {
               className="inline-flex items-center gap-2 px-8 py-3 rounded-lg border border-border text-muted-foreground font-display font-semibold text-sm hover:border-primary/50 hover:text-primary transition-colors"
             >
               Hire / contact
+            </a>
+            <a
+              href="/Asad_Ali_Hassan_CV.pdf"
+              download="Asad_Ali_Hassan_CV.pdf"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-lg border border-border text-muted-foreground font-display font-semibold text-sm hover:border-primary/50 hover:text-primary transition-colors"
+            >
+              <DocumentArrowDownIcon className="w-4 h-4" />
+              Download CV
             </a>
           </div>
 

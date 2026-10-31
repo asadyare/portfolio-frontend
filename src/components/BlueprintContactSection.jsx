@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import {
   ArrowTopRightOnSquareIcon,
   CodeBracketIcon,
+  DocumentArrowDownIcon,
   EnvelopeIcon,
 } from '@heroicons/react/24/outline'
 
@@ -32,6 +33,11 @@ const LinkedInIcon = (props) => (
 )
 
 const links = [
+  {
+    href: '/Asad_Ali_Hassan_CV.pdf',
+    label: 'Download CV',
+    download: true,
+  },
   {
     href: 'https://github.com/asadyare',
     label: 'GitHub',
@@ -68,10 +74,11 @@ export default function BlueprintContactSection() {
             Let&apos;s <span className="text-gradient-neon">Connect</span>
           </h2>
           <p className="text-muted-foreground mt-4 mb-10 leading-relaxed max-w-lg mx-auto">
-            Based in <strong className="text-foreground">Birmingham, UK</strong> · DevSecOps Apprentice at{' '}
-            <strong className="text-foreground">Cyber Agoge</strong>. Open to{' '}
-            <strong className="text-foreground">DevSecOps</strong>, <strong className="text-foreground">platform / SRE</strong>
-            , and <strong className="text-foreground">cloud security</strong> roles (UK / remote). Same story on{' '}
+            Based in <strong className="text-foreground">Birmingham, UK</strong>. Part-time DevSecOps Apprentice at{' '}
+            <strong className="text-foreground">Cyber Agoge</strong> since November 2024, focused on Python and AWS
+            security automation and secure CI/CD. Open to junior and mid-level{' '}
+            <strong className="text-foreground">DevSecOps</strong> and{' '}
+            <strong className="text-foreground">cloud security</strong> roles, including remote. Same story on{' '}
             <a
               href="https://www.linkedin.com/in/asad-hassan-20b540313/"
               target="_blank"
@@ -87,13 +94,14 @@ export default function BlueprintContactSection() {
             {links.map((l) => {
               let Icon = ArrowTopRightOnSquareIcon
               if (l.mail) Icon = EnvelopeIcon
+              else if (l.download) Icon = DocumentArrowDownIcon
               else if (l.label === 'GitHub') Icon = GitHubIcon
               else if (l.label === 'LinkedIn') Icon = LinkedInIcon
 
               let classes =
                 'inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-200'
 
-              if (l.label === 'GitHub') {
+              if (l.label === 'GitHub' || l.download) {
                 classes += ' bg-primary text-primary-foreground hover:opacity-90'
               } else if (l.label === 'LinkedIn') {
                 classes += ' border border-glow text-primary bg-transparent hover:bg-primary/10 shadow-[var(--shadow-neon)]'
@@ -105,8 +113,9 @@ export default function BlueprintContactSection() {
                 <a
                   key={l.href}
                   href={l.href}
-                  target={l.mail ? undefined : '_blank'}
-                  rel={l.mail ? undefined : 'noopener noreferrer'}
+                  target={l.mail || l.download ? undefined : '_blank'}
+                  rel={l.mail || l.download ? undefined : 'noopener noreferrer'}
+                  download={l.download ? 'Asad_Ali_Hassan_CV.pdf' : undefined}
                   className={classes}
                 >
                   <Icon className="w-4 h-4 shrink-0" />

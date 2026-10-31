@@ -9,8 +9,10 @@ import {
   getCaseStudyByCategoryAndSlug,
   getCaseStudyBySlug,
   projectCasePath,
+  projectRepos,
 } from '../data/caseStudies'
-import { formatRepoCreatedAt } from '../utils/formatProjectDate'
+import { studies } from '../../shared/routes.js'
+import { usePageMeta } from '../hooks/usePageMeta'
 
 function Section({ title, children }) {
   return (
@@ -27,12 +29,21 @@ export default function ProjectCaseStudy() {
   const { categoryId, slug } = useParams()
 
   const bySlugOnly = slug ? getCaseStudyBySlug(slug) : null
-  if (bySlugOnly && categoryId && bySlugOnly.category !== categoryId) {
-    return <Navigate to={projectCasePath(bySlugOnly.category, bySlugOnly.slug)} replace />
-  }
-
+  const redirectTo =
+    bySlugOnly && slug && (bySlugOnly.slug !== slug || bySlugOnly.category !== categoryId)
+      ? projectCasePath(bySlugOnly.category, bySlugOnly.slug)
+      : null
   const project =
-    categoryId && slug ? getCaseStudyByCategoryAndSlug(categoryId, slug) : null
+    !redirectTo && categoryId && slug ? getCaseStudyByCategoryAndSlug(categoryId, slug) : null
+  const routeMeta = studies.find((item) => item.slug === project?.slug)
+
+  usePageMeta({
+    title: project ? `${project.title} | Asad Ali Hassan` : 'Project not found | Asad Ali Hassan',
+    description: routeMeta?.description ?? 'No case study at that address.',
+    path: project ? projectCasePath(project.category, project.slug) : '/projects',
+  })
+
+  if (redirectTo) return <Navigate to={redirectTo} replace />
 
   if (!project) {
     return (
@@ -101,14 +112,6 @@ export default function ProjectCaseStudy() {
                 <h1 className="text-3xl md:text-4xl font-bold text-foreground font-display mt-1">
                   {project.title}
                 </h1>
-                {formatRepoCreatedAt(project.createdAt) && (
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Repository created{' '}
-                    <time className="text-foreground/90 font-medium" dateTime={project.createdAt}>
-                      {formatRepoCreatedAt(project.createdAt)}
-                    </time>
-                  </p>
-                )}
                 <p className="text-muted-foreground mt-3 leading-relaxed">{cs.summary}</p>
               </div>
             </div>
@@ -124,19 +127,31 @@ export default function ProjectCaseStudy() {
               ))}
             </div>
 
-            <div className="flex flex-wrap gap-3 pt-2">
-              <a
-                href={project.repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border bg-background hover:border-primary/50 hover:bg-primary/5 transition-colors text-sm font-medium text-foreground"
-              >
-                <ArrowTopRightOnSquareIcon className="w-4 h-4" />
-                Open repository
-              </a>
-              {project.badgeUrl && (
-                <img src={project.badgeUrl} alt="CI status" className="h-9 rounded-md opacity-90" />
-              )}
+            <div className="flex flex-wrap gap-3 pt-2 items-center">
+              {projectRepos(project).map((repo) => (
+                <a
+                  key={repo.url}
+                  href={repo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-border bg-background hover:border-primary/50 hover:bg-primary/5 transition-colors text-sm font-medium text-foreground"
+                >
+                  <ArrowTopRightOnSquareIcon className="w-4 h-4" />
+                  {repo.label}
+                </a>
+              ))}
+              {projectRepos(project)
+                .filter((repo) => repo.badgeUrl)
+                .map((repo) => (
+                  <img
+                    key={repo.badgeUrl}
+                    src={repo.badgeUrl}
+                    alt={`${repo.label} CI status`}
+                    width={88}
+                    height={20}
+                    className="h-5 w-auto rounded-md opacity-90"
+                  />
+                ))}
             </div>
           </motion.div>
         </div>

@@ -27,7 +27,7 @@ const links = [
   {
     href: 'https://www.linkedin.com/in/asad-hassan-20b540313/',
     label: 'LinkedIn',
-    description: 'Asad Hassan',
+    description: 'Asad Ali Hassan',
     icon: ArrowTopRightOnSquareIcon,
     external: true,
   },

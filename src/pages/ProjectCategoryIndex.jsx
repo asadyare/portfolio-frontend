@@ -8,18 +8,25 @@ import {
   isValidCategoryId,
   projectCasePath,
 } from '../data/caseStudies'
-import { formatRepoCreatedAt } from '../utils/formatProjectDate'
+import { usePageMeta } from '../hooks/usePageMeta'
 
 export default function ProjectCategoryIndex() {
   const { categoryId } = useParams()
+  const valid = Boolean(categoryId && isValidCategoryId(categoryId))
+  const meta = valid ? getCategoryMeta(categoryId) : null
+  const legacyStudy = categoryId && !valid ? getCaseStudyBySlug(categoryId) : null
 
-  // Legacy bookmark: /projects/portfolio-ci-cd-security → /projects/portfolio-projects/portfolio-ci-cd-security
-  const legacyStudy = categoryId ? getCaseStudyBySlug(categoryId) : null
+  usePageMeta({
+    title: meta ? `${meta.label} | Asad Ali Hassan` : 'Projects | Asad Ali Hassan',
+    description: meta?.description ?? 'Project groups on this portfolio.',
+    path: meta ? `/projects/${meta.id}` : '/projects',
+  })
+
   if (legacyStudy) {
     return <Navigate to={projectCasePath(legacyStudy.category, legacyStudy.slug)} replace />
   }
 
-  if (!categoryId || !isValidCategoryId(categoryId)) {
+  if (!valid) {
     return (
       <div className="container mx-auto px-6 py-24 max-w-2xl text-center">
         <h1 className="text-2xl font-bold text-foreground font-display mb-4">Category not found</h1>
@@ -35,10 +42,7 @@ export default function ProjectCategoryIndex() {
     )
   }
 
-  const meta = getCategoryMeta(categoryId)
-  const list = [...getCaseStudiesByCategory(categoryId)].sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-  )
+  const list = [...getCaseStudiesByCategory(categoryId)].sort((a, b) => (a.order ?? 99) - (b.order ?? 99))
 
   return (
     <div className="w-full min-h-[70vh]">
@@ -92,12 +96,6 @@ export default function ProjectCategoryIndex() {
                           {p.title}
                         </h2>
                         <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{p.caseStudy.summary}</p>
-                        {formatRepoCreatedAt(p.createdAt) && (
-                          <p className="text-xs text-muted-foreground/90 mt-2">
-                            Repo created{' '}
-                            <time dateTime={p.createdAt}>{formatRepoCreatedAt(p.createdAt)}</time>
-                          </p>
-                        )}
                         <div className="flex flex-wrap gap-2 mt-3">
                           {p.tags.slice(0, 4).map((t) => (
                             <span
