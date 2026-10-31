@@ -33,6 +33,7 @@ Aligned with **`BlueprintSkillsSection`** (home “Core Technologies”) and too
 ### Project case studies (by domain)
 
 - **`/projects`** — hub: pick a vertical (portfolio, bank, healthcare, …).
+- **`/projects/aws-guardrail-projects`** — **AWS Guardrail Pipeline** (GitLab CI, Terraform baseline, not applied in default jobs) and **AWS Guardrail Scanner** (read-only Python / boto3 CLI).
 - **`/projects/portfolio-projects`** — case studies for this portfolio’s repos (CI/CD, frontend, K8s, etc.).
 - **`/projects/bank-app-projects`** — **Bank app demo** (AWS, Terraform, in-repo threat model / case study; route slug `secure-banking-app`). **`/projects/healthcare-app-projects`** — **healthcare-apps** (`Healthcare_Apps`: EKS/Terraform, hardened CI/CD, threat model + case study).
 - **`/projects/:categoryId/:slug`** — full case study (e.g. `/projects/portfolio-projects/portfolio-ci-cd-security`). Data in **`src/data/caseStudies.js`** (`category` + `slug`); categories in **`projectCategories`**.

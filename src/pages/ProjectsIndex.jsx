@@ -21,9 +21,8 @@ export default function ProjectsIndex() {
               Case studies by <span className="text-gradient-neon">domain</span>
             </h1>
             <p className="text-muted-foreground mt-5 max-w-2xl mx-auto leading-relaxed">
-              Portfolio-related repositories live under{' '}
-              <code className="text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">/projects/portfolio-projects</code>
-              .
+              Newest case studies are the AWS account guardrails. Portfolio-related repositories live under{' '}
+              <code className="text-xs bg-muted px-1.5 py-0.5 rounded text-foreground">/projects/portfolio-projects</code>.
             </p>
           </motion.div>
         </div>
@@ -52,7 +51,9 @@ export default function ProjectsIndex() {
                     <p className="text-xs text-muted-foreground mt-3 font-mono">
                       /projects/{cat.id}
                       {n > 0 ? (
-                        <span className="ml-2 text-primary">· {n} case study{n === 1 ? '' : 'ies'}</span>
+                        <span className="ml-2 text-primary">
+                          · {n} {n === 1 ? 'case study' : 'case studies'}
+                        </span>
                       ) : (
                         <span className="ml-2">· coming soon</span>
                       )}
