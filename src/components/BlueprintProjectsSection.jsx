@@ -19,9 +19,9 @@ export default function BlueprintProjectsSection() {
             Core <span className="text-gradient-neon">Projects</span>
           </h2>
           <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-sm leading-relaxed">
-            Four case studies, in the order I would walk through them: AWS guardrails, the secure banking app, the
-            healthcare apps, then the portfolio platform (the site plus the CI, Kubernetes, scheduled scanning, and
-            threat-model repositories behind it).
+            AWS account guardrails first (the scanner and the GitLab pipeline), then the secure banking app, the
+            healthcare apps, then the portfolio platform (this site plus the CI, Kubernetes, scheduled scanning, and
+            threat-model repositories).
           </p>
           <p className="mt-6">
             <Link

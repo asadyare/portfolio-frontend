@@ -3,7 +3,8 @@
  * Categories are defined in `projectCategories` (e.g. portfolio-projects, bank-app-projects).
  */
 import { BuildingOffice2Icon, HeartIcon } from '@heroicons/react/24/outline'
-import { awsGuardrailsStudy, portfolioPlatformStudy } from './newStudies.js'
+import { awsGuardrailPipelineStudy, awsGuardrailScannerStudy } from './awsStudies.js'
+import { portfolioPlatformStudy } from './newStudies.js'
 
 /** @typedef {{ title: string, items: string[] }} PipelineStage */
 
@@ -41,10 +42,10 @@ import { awsGuardrailsStudy, portfolioPlatformStudy } from './newStudies.js'
 /** Registered route segments under /projects/:categoryId — include empty categories for future repos */
 export const projectCategories = [
   {
-    id: 'aws-guardrails',
-    label: 'AWS guardrails',
+    id: 'aws-guardrail-projects',
+    label: 'AWS account guardrails',
     description:
-      'A read-only boto3 scanner and a GitLab CI pipeline that checks an AWS account baseline. The pipeline is not applied to a live account.',
+      'A read-only Python scanner for one AWS account (CIS AWS Foundations Benchmark v3.0.0 and AWS FSBP) and a GitLab CI pipeline that checks an account-level Terraform baseline without applying it.',
     order: 1,
   },
   {
@@ -72,13 +73,14 @@ export const projectCategories = [
 
 /** @type {CaseStudy[]} */
 export const caseStudies = [
-  awsGuardrailsStudy,
+  awsGuardrailPipelineStudy,
+  awsGuardrailScannerStudy,
   {
     slug: 'secure-banking-app',
     category: 'bank-app-projects',
     title: 'Secure banking app',
     shortTitle: 'Secure banking app',
-    order: 2,
+    order: 3,
     repoUrl: 'https://github.com/asadyare/secure-banking-app',
     repos: [
       {
@@ -179,7 +181,7 @@ export const caseStudies = [
     category: 'healthcare-app-projects',
     title: 'Healthcare apps',
     shortTitle: 'Healthcare apps',
-    order: 3,
+    order: 4,
     repoUrl: 'https://github.com/asadyare/Healthcare_Apps',
     repos: [
       {

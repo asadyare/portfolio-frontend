@@ -19,7 +19,7 @@ export function contentSecurityPolicy(jsonLdHash) {
     "script-src-attr 'none'",
     "style-src 'self'",
     "style-src-attr 'unsafe-inline'",
-    "img-src 'self' data: blob: https://github.com https://camo.githubusercontent.com https://github.githubassets.com https://challenges.cloudflare.com",
+    "img-src 'self' data: blob: https://github.com https://camo.githubusercontent.com https://github.githubassets.com https://gitlab.com https://challenges.cloudflare.com",
     "font-src 'self'",
     "connect-src 'self' https://challenges.cloudflare.com https://cloudflareinsights.com",
     "frame-src https://challenges.cloudflare.com",

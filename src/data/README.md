@@ -10,8 +10,8 @@
 URLs:
 
 - `/projects` — hub
-- `/projects/aws-guardrails` — AWS guardrails
-- `/projects/aws-guardrails/aws-guardrails` — that case study
+- `/projects/aws-guardrail-projects/aws-guardrail-pipeline` — GitLab CI baseline
+- `/projects/aws-guardrail-projects/aws-guardrail-scanner` — read-only boto3 scanner
 - `/projects/bank-app-projects/secure-banking-app`
 - `/projects/healthcare-app-projects/healthcare-apps`
 - `/projects/portfolio-projects/portfolio-platform`

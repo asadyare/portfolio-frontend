@@ -18,7 +18,13 @@ const PORTFOLIO_REPOS = [
 
 test('homepage projects are ordered AWS, banking, healthcare, portfolio', () => {
   const slugs = getHomePageCaseStudies().map((study) => study.slug)
-  assert.deepEqual(slugs, ['aws-guardrails', 'secure-banking-app', 'healthcare-apps', 'portfolio-platform'])
+  assert.deepEqual(slugs, [
+    'aws-guardrail-pipeline',
+    'aws-guardrail-scanner',
+    'secure-banking-app',
+    'healthcare-apps',
+    'portfolio-platform',
+  ])
 })
 
 test('route catalogue matches case studies', () => {
@@ -42,13 +48,12 @@ test('portfolio platform keeps the five repository links', () => {
   assert.deepEqual(platform.legacySlugs, LEGACY_PORTFOLIO_SLUGS)
 })
 
-test('AWS guardrails links the scanner and the GitLab pipeline', () => {
-  const aws = caseStudies.find((study) => study.slug === 'aws-guardrails')
-  const urls = projectRepos(aws).map((repo) => repo.url)
-  assert.deepEqual(urls, [
-    'https://github.com/asadyare/aws-guardrail-scanner',
-    'https://gitlab.com/asadyare/aws-guardrail-pipeline',
-  ])
+test('AWS guardrail studies keep the published repository URLs', () => {
+  const pipeline = caseStudies.find((study) => study.slug === 'aws-guardrail-pipeline')
+  const scanner = caseStudies.find((study) => study.slug === 'aws-guardrail-scanner')
+  assert.equal(projectRepos(pipeline)[0].url, 'https://gitlab.com/asadyare/aws-guardrail-pipeline')
+  assert.equal(projectRepos(scanner)[0].url, 'https://github.com/asadyare/aws-guardrail-scanner')
+  assert.equal(resolveRoute('/projects/aws-guardrail-projects/aws-guardrail-scanner').title, 'AWS Guardrail Scanner | Asad Ali Hassan')
 })
 
 test('legacy portfolio URLs redirect and unknown paths do not', () => {
@@ -58,8 +63,11 @@ test('legacy portfolio URLs redirect and unknown paths do not', () => {
     resolveRoute('/projects/portfolio-projects/portfolio-k8s-security').to,
     '/projects/portfolio-projects/portfolio-platform',
   )
-  assert.equal(resolveRoute('/projects/aws-guardrails').kind, 'page')
-  assert.equal(resolveRoute('/projects/aws-guardrails/aws-guardrails').title, 'AWS guardrails | Asad Ali Hassan')
+  assert.equal(resolveRoute('/projects/aws-guardrail-projects').kind, 'page')
+  assert.equal(
+    resolveRoute('/projects/aws-guardrail-projects/aws-guardrail-pipeline').title,
+    'AWS Guardrail Pipeline | Asad Ali Hassan',
+  )
   assert.equal(resolveRoute('/does-not-exist').kind, 'unknown')
 })
 

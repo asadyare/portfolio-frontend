@@ -41,7 +41,7 @@ Aligned with **`BlueprintSkillsSection`** (home “Core Technologies”) and too
 Shown in this order: AWS guardrails, the secure banking app, the healthcare apps, then the portfolio platform.
 
 - **`/projects`** — hub.
-- **`/projects/aws-guardrails/aws-guardrails`** — read-only boto3 scanner and the GitLab CI account baseline. The pipeline is not applied to a live account.
+- **`/projects/aws-guardrail-projects`** — AWS Guardrail Pipeline (GitLab CI, Terraform baseline, not applied in the default jobs) and AWS Guardrail Scanner (read-only Python and boto3).
 - **`/projects/bank-app-projects/secure-banking-app`** — banking-style SPA (slug unchanged).
 - **`/projects/healthcare-app-projects/healthcare-apps`** — CareConnect360, MedTrack Pro, and HealthHub Mobile.
 - **`/projects/portfolio-projects/portfolio-platform`** — this site plus the CI/CD, Kubernetes, daily security, and threat-model repositories, with every repo link kept.

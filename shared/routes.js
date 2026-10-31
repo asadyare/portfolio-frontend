@@ -13,10 +13,10 @@ export const HOME_DESCRIPTION =
 
 export const categories = [
   {
-    id: 'aws-guardrails',
-    label: 'AWS guardrails',
+    id: 'aws-guardrail-projects',
+    label: 'AWS account guardrails',
     description:
-      'A read-only boto3 scanner and a GitLab CI pipeline that checks an AWS account baseline. The pipeline is not applied to a live account.',
+      'A read-only Python scanner for one AWS account (CIS AWS Foundations Benchmark v3.0.0 and AWS FSBP) and a GitLab CI pipeline that checks an account-level Terraform baseline without applying it.',
     order: 1,
   },
   {
@@ -45,14 +45,22 @@ export const categories = [
 export const studies = [
   {
     order: 1,
-    category: 'aws-guardrails',
-    slug: 'aws-guardrails',
-    title: 'AWS guardrails',
+    category: 'aws-guardrail-projects',
+    slug: 'aws-guardrail-pipeline',
+    title: 'AWS Guardrail Pipeline',
     description:
-      'Read-only Python scanner for common AWS misconfigurations, plus a GitLab CI pipeline that checks an account baseline with Terraform, Checkov, Trivy, and a plan checker. Not applied to a live account.',
+      'GitLab CI for an account-level Terraform baseline. Default jobs do not apply Terraform or call AWS. The control gate fails when the plan report misses a high or critical control.',
   },
   {
     order: 2,
+    category: 'aws-guardrail-projects',
+    slug: 'aws-guardrail-scanner',
+    title: 'AWS Guardrail Scanner',
+    description:
+      'Read-only Python 3.12 and boto3 CLI. It checks one AWS account against CIS AWS Foundations Benchmark v3.0.0 and AWS FSBP, and can fail a pipeline on --fail-on.',
+  },
+  {
+    order: 3,
     category: 'bank-app-projects',
     slug: 'secure-banking-app',
     title: 'Secure banking app',
@@ -60,7 +68,7 @@ export const studies = [
       'Banking-style Vite, React, and TypeScript demo on AWS. Private S3, CloudFront, and WAFv2 via Terraform, OIDC deploys, and in-repo threat model and incident write-ups.',
   },
   {
-    order: 3,
+    order: 4,
     category: 'healthcare-app-projects',
     slug: 'healthcare-apps',
     title: 'Healthcare apps',
@@ -68,7 +76,7 @@ export const studies = [
       'CareConnect360, MedTrack Pro, and HealthHub Mobile. Express and Vite workspaces, Terraform for VPC, private EKS, and KMS, and a hardened CI pipeline with an in-repo threat model.',
   },
   {
-    order: 4,
+    order: 5,
     category: 'portfolio-projects',
     slug: 'portfolio-platform',
     title: 'Portfolio platform',
@@ -148,7 +156,7 @@ export function resolveRoute(pathname) {
   if (path === '/projects') {
     return page(
       'Projects | Asad Ali Hassan',
-      'Case studies: AWS guardrails, a secure banking app demo, healthcare applications, and the portfolio platform.',
+      'Case studies: AWS account guardrails, a secure banking app demo, healthcare applications, and the portfolio platform.',
       path,
     )
   }

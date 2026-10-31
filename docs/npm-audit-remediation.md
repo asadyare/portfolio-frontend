@@ -36,6 +36,10 @@ Lockfile (`package-lock.json`) reflects the updated dependency graph; no applica
 - After adding or bumping dependencies, run **`npm audit`** locally before pushing.
 - If **`npm audit fix`** cannot resolve without a breaking change, use **`npm audit fix --force`** only after review, or add a targeted **`overrides`** in `package.json` for the patched sub-dependency (document the rationale in this file).
 
+## Follow-up (October 2026)
+
+`npm audit --audit-level=high` failed again on a content-only pull request. The lockfile had not changed since May 2026, and new advisories had been published for packages already in the tree (including `brace-expansion`, `browserslist`, `js-yaml`, `nanoid`, `postcss`, `protobufjs`, `react-router`, and `source-map-js`). `npm audit fix` updated the lockfile only. `package.json` ranges were left as they were. After the fix, `npm audit` reports 0 vulnerabilities, and `npm run lint`, `npm test`, and `npm run build` succeed.
+
 ## References
 
 - [protobufjs advisory GHSA-xq3m-2v4x-88gg](https://github.com/advisories/GHSA-xq3m-2v4x-88gg)

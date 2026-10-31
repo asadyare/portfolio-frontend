@@ -28,7 +28,7 @@ export default function ProjectsIndex() {
               Case studies by <span className="text-gradient-neon">domain</span>
             </h1>
             <p className="text-muted-foreground mt-5 max-w-2xl mx-auto leading-relaxed">
-              AWS guardrails, the secure banking app, the healthcare apps, and the portfolio platform.
+              AWS account guardrails, the secure banking app, the healthcare apps, and the portfolio platform.
             </p>
           </motion.div>
         </div>
